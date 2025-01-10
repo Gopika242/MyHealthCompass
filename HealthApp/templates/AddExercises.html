@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box3" style="margin-top:50px;margin-left:50px">
+<h1 style="color:#020d0f">Add Workouts</h1>
+    <form action="{% url 'SaveExercise' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+                           <select class="input-group col-6" name="Objective1">
+                            <option>Select Fitness Objective</option>
+   <option >Weight Loss</option>
+    <option >Weight Gain</option>
+    <option >Maintain Weight & increase strength</option>
+                           </select>
+                          </div>
+    <div>
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="input-group col-6" id="exampleInputName1" placeholder="Name" name="caption"><br><br>
+                      </div>
+                        <div class="input-group col-6">
+                            <label>Upload Demo video</label><br><br>
+<!--                            <input type="text" class="form-control file-upload-info" placeholder="Upload  Category Image">-->
+
+                            <input type="file" name="video" class="file-upload-browse btn btn-primary" >
+
+                        </div>
+      <div>
+                        <label >Calorie burn</label>
+                        <input type="text" class="input-group col-6"  placeholder="Calorie burn" name="calorie"><br><br>
+                      </div>
+      <div class="form-group" style="margin-top: 50px">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="input-group col-6" id="exampleTextarea1" rows="6" placeholder="Description" name="EDescription"></textarea>
+                      </div>
+    <div style="margin-top: 50px">
+        <button type="submit" class="btn btn-outline-success btn-fw">Submit</button>
+         <a href="{%url 'ViewExercise' %} " class="btn btn-info btn-fw" >View Exercise-Plans</a>
+                             </div>
+</form>
+
+  <div style="margin-left:400px;margin-top:-500px">
+    <img src="{% static 'admin/assets/images/ropes_155003-21333.avif' %}" alt="" width="800px" height="500px">
+  </div>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    {% if messages %}
+                    {% for i in messages %}
+                    {% if i.tags == 'success' %}
+                    <script>
+                        swal('{{i}}','','success');
+                    </script>
+                    {% elif i.tags == 'error' %}
+                    <script>
+                        swal('{{i}}','','error');
+                    </script>
+                    {% elif i.tags == 'warning' %}
+                    <script>
+                        swal('{{i}}','','warning');
+                    </script>
+
+                    {% else %}
+                    <script>
+                        swal('{{i}}','','info');
+                    </script>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+</body>
+</html>
+{% endblock %}

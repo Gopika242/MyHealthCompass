@@ -1,0 +1,40 @@
+.custom-table{
+    border-collapse: collapse;
+    width: 130%;
+    border: 1px solid #080808;
+    th, td {
+        border: 1px solid #080808 ;
+        padding: 8px;
+        text-align: left;
+        color: #080808;
+    }
+
+    th {
+        background-color: #61f33e   ;
+       color: #080808;
+    }
+
+    td {
+        background-color: #d0f7c6  ;
+       color: #080808;
+    }
+
+    td img {
+        max-width: 150px;
+        height: 100px;
+    }
+
+    td:nth-child(3) {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+}
+
+.heading11{
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom:50px;
+  color:#030e01;
+
+}

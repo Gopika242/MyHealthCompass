@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color:#fdfcf2">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+                <li class="nav-item active"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+                <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+                <li class="nav-item">
+                    <a href="{% url 'CartPage' %}" class="nav-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <sup>{{x}}</sup>
+                       
+                    </a>
+                </li>
+                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="hero-wrap js-fullheight">
+    <div class="home-slider owl-carousel js-fullheight">
+        <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/wp13948104-home-workout-wallpapers.jpg' %});">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center">
+                    <div class="col-md-7 ftco-animate">
+                        <div class="text w-100">
+                            <h2 style="color:#000000">Welcome to MyHealthCompass</h2>
+                            <h1 class="mb-4">Get Moving, Get Strong – Your Journey to Fitness Starts Here!</h1>
+                            <p><a href="{%url 'About' %}" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact us</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/wp13948156-home-workout-wallpapers.jpg' %});">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center">
+                    <div class="col-md-7 ftco-animate">
+                        <div class="text w-100" style="margin-left:400px;margin-top:300px">
+                            <h2 style="color:#FFFFFF">A Fresh approach to healthy life</h2>
+                            <h1 class="mb-4 color-white">Transform Your Health with Every Step – Tailored Exercise Plans Just for You!</h1>
+                            <p><a href="{%url 'About' %}" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact us</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/wp13948178-home-workout-wallpapers.jpg' %});">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-end">
+                    <div class="col-md-8 ftco-animate">
+                        <div class="text w-100" style="margin-left:-500px;margin-top:200px">
+                            <h2 style="color:#000000;">Welcome MyHealthCompass</h2>
+                            <h1 class="mb-4">Unlock Your Potential – Fitness Made Easy and Effective!</h1>
+                            <p><a href="{%url 'About' %}" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact us</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top:50px;margin-bottom:50px;margin-left:100px;width:1300px;background-color:#FFC300  ;padding:20px; display: flex; align-items: center; justify-content: space-between;">
+    <div class="text-content" style="max-width: 60%;">
+        <h6 style="color:#000000">Welcome to MyHealthCompass</h6>
+        <h4 style="color:#000000">Make Every Day a Step Toward a Stronger You – Exercise, Energize, Thrive!</h4><br>
+        <p style="color:#000000">At MyHealthCompass, we believe that exercise is the key to unlocking a healthier, stronger version of yourself. Whether you're aiming to lose weight, gain muscle, or maintain your current physique, we've got tailored workout routines designed just for you. Our expert-guided plans help you stay on track with your fitness goals, ensuring every move you make brings you closer to your desired outcome. With detailed exercise videos and step-by-step descriptions, you’ll be able to perform each routine with confidence and precision. Start your fitness journey today and let MyHealthCompass be your partner in building strength, improving health, and achieving lasting results!</p>
+    </div>
+
+    <div class="image-content">
+        <img src="{% static 'web/images/exercise/BVRSwYm65mVqo2ypR7sUhS6fPnBt683V.jpg' %}" height="360px" width="400px" alt="">
+    </div>
+</div>
+
+<h3 style="margin-left:200px;margin-bottom:20px;">Choose your fitness goal to get started with the perfect workout routine</h3>
+<div class="row">
+<div class="card" style="width: 18rem; margin-left:300px;margin-bottom:60px;height=200px" >
+  <img src="{% static 'web/images/exercise/1520043602423.jpeg' %}" class="card-img-top" alt="..." height="200px" width="300px">
+  <div class="card-body" >
+      <h6>Weight Loss</h6>
+    <p class="card-text" > Burn fat and shed those extra pounds with tailored exercises.</p>
+	  <p style="margin-top:50px;margin-left:10px;margin-top:80px" ><a href="{% url 'WLRoutines' 'WeightLoss' %}" class="btn btn-outline-warning">View Weight Loss Routines</a>
+
+  </div>
+</div>
+<div class="card" style="width: 18rem; margin-left:50px;margin-bottom:60px;height=200px" >
+  <img src="{% static 'web/images/exercise/portrait-.jpg' %}" class="card-img-top" alt="..." height="200px" width="300px">
+  <div class="card-body" >
+      <h6>Weight Gain</h6>
+    <p class="card-text" >Fuel Your Growth – Achieve Your Weight Gain Goals with Tailored Plans!</p>
+     <p style="margin-left:10px;margin-top:50px" ><a href="{% url 'WGRoutines' 'WeightGain' %}" class="btn btn-outline-warning">View Weight Gain Routines</a>
+  </div>
+</div>
+<div class="card" style="width: 18rem; margin-left:30px;margin-bottom:60px; height=200px">
+  <img src="{% static 'web/images/exercise/woman.avif' %}" class="card-img-top" alt="..." height="200px" width="300px">
+  <div class="card-body" >
+      <h6>Maintain Weight & Build Strength</h6>
+    <p class="card-text" >Stay Strong, Stay Balanced – Maintain Your Weight and Build Lasting Strength!</p>
+    <p style="margin-left:10px;margin-top:35px" ><a href="{% url 'WMRoutines' 'Maintain' %}" class="btn btn-outline-warning">View Maintain Weight & Build Strength Routines</a>
+  </div>
+</div>
+    </div>
+<a class="btn btn-outline-info" href="{% url 'ExerciseTutorials' %}" style="margin-left:650px;margin-bottom:100px">View Exercise Tutorials</a>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+</body>
+</html>
+{% endblock %}

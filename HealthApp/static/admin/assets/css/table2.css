@@ -1,0 +1,38 @@
+.table11 {
+    border-collapse: collapse;
+    width: 130%;
+    border: 1px solid #080808;
+
+    th, td {
+        border: 1px solid #080808;
+        padding: 8px;
+        text-align: left;
+        color: #080808;
+    }
+
+    th {
+        background-color: #a3faf5;
+        color: #080808;
+    }
+
+    td {
+        background-color: #d2f8f6;
+        color: #080808;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    td img {
+        max-width: 100px;
+        height: 100px;
+    }
+}
+
+.heading22{
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom:50px;
+  color:#030e01;
+
+}

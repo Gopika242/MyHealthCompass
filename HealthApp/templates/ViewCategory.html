@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+   <head>
+  	<title>Table 06</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <link rel="stylesheet" href="{% static 'admin/assets/css/Categorytable1.css' %}">
+   </head>
+	<body >
+               <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="heading11">Category Details</h4>
+
+                    <table class="custom-table">
+                      <thead>
+                       <tr>
+
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th >Description</th>
+                            <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in cat %}
+                          <tr>
+                            <td>{{i.CategoryName}}</td>
+                              <td><img src="{{i.CategoryImage.url}}" alt=""></td>
+                              <td >{{i.Description}}</td>
+                              <td>
+                                  <a href="{%url 'EditCategory' CE_Id=i.id %} " class="btn btn-outline-success btn-fw">Edit</a>
+
+                                  <a href="{%url 'DeleteCategory' DE_Id=i.id %} " class="btn btn-outline-danger btn-fw">Delete</a>
+                              </td>
+                          </tr>
+
+
+                        {% endfor  %}
+                        </tbody>
+                    </table>
+                   <a href="{%url 'AddShopCategory' %} " class="btn btn-info btn-fw" style="margin-top: 50px">Add more Categories</a>
+
+                  </div>
+                </div>
+              </div>
+
+	</body>
+</html>
+
+{% endblock %}

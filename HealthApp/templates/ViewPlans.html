@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .workout-day {
+            margin-bottom: 20px;
+        }
+        .workout-day h2 {
+            font-size: 18px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .workout-day p {
+            font-size: 16px;
+            color: #555;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+{% for i in wplans %}
+    <!-- Display workouts for each day -->
+        <h1 style="margin-top:50px">Workout Plan: {{i.Title}}</h1>
+       <h4>Fitness-Objective: {{i.FObjective}}</h4>
+    <div class="workout-day">
+        <h2>Monday</h2>
+        <p>{{i.Monday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Tuesday</h2>
+        <p>{{i.Tuesday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Wednesday</h2>
+        <p>{{i.Wednesday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Thursday</h2>
+        <p>{{i.Thursday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Friday</h2>
+        <p>{{i.Friday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Saturday</h2>
+        <p>{{i.Saturday}}</p>
+    </div>
+    <div class="workout-day">
+        <h2>Sunday</h2>
+        <p>{{i.Sunday}}</p>
+    </div>
+    <a href="{% url 'EditWplans' WeId=i.id %}" class="btn btn-success">Edit</a>
+    <a href="{% url 'DeleteWplans' DwId=i.id %}" class="btn btn-danger">Delete</a>
+{% endfor %}
+    <!-- Buttons for navigation -->
+    <div class="btn-container">
+        <a href="{% url 'AddWorkoutPlans' %}" class="btn btn-info" style="margin-top:50px">Add More Workouts</a>
+
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

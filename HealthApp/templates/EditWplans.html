@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box3" style="margin-top:50px;margin-left:50px">
+<h1 style="color:#020d0f">Add Workouts</h1>
+ <form action="{%url 'UpdateWPlans' WuId=Edit.id %}" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       <div>
+           <label>Define Your Workout Plan Title</label>
+           <input type="text" class="input-group col-6"  placeholder="Define Your Workout Plan Title" name="Title" value="{{Edit.Title}}"><br>
+           </div>
+     <div class="form-group">
+         <label>Select Fitness Objective</label>
+                           <select class="input-group col-6" name="FObjective">
+                            <option>{{Edit.FObjective}}</option>
+                             <option >Weight Loss</option>
+                               <option >Weight Gain</option>
+                               <option >Maintain Weight & increase strength</option>
+                           </select>
+                          </div>
+        <div class="form-group">
+            <label>Monday:</label>
+            <textarea  name="Monday" placeholder="Monday workout" class="input-group col-6">{{Edit.Monday}}</textarea>
+        </div>
+        <div class="form-group">
+             <label>Tuesday:</label>
+            <textarea  name="Tuesday" placeholder="Tuesday workout" class="input-group col-6">{{Edit.Tuesday}}</textarea>
+        </div>
+     <div class="form-group">
+             <label>Wednesday:</label>
+            <textarea  name="Wednesday" placeholder="Wednesday workout" class="input-group col-6">{{Edit.Wednesday}}</textarea>
+        </div>
+     <div class="form-group">
+             <label>Thursday:</label>
+            <textarea  name="Thursday" placeholder="Thursday workout" class="input-group col-6">{{Edit.Thursday}}</textarea>
+        </div>
+     <div class="form-group">
+             <label>Friday:</label>
+            <textarea  name="Friday" placeholder="Friday workout" class="input-group col-6">{{Edit.Friday}}</textarea>
+        </div>
+     <div class="form-group">
+             <label>Saturday:</label>
+            <textarea  name="Saturday" placeholder="Saturday workout" class="input-group col-6">{{Edit.Saturday}}</textarea>
+        </div>
+     <div class="form-group">
+             <label>Sunday:</label>
+            <textarea  name="Sunday" placeholder="Sunday workout" class="input-group col-6">{{Edit.Sunday}}</textarea>
+        </div>
+
+  <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+
+
+   </form>
+
+ <div style="margin-left:400px;margin-top:-500px">
+    <img src="{% static 'admin/assets/images/m2.jpg' %}" alt="" width="700px" height="500px">
+  </div>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    {% if messages %}
+                    {% for i in messages %}
+                    {% if i.tags == 'success' %}
+                    <script>
+                        swal('{{i}}','','success');
+                    </script>
+                    {% elif i.tags == 'error' %}
+                    <script>
+                        swal('{{i}}','','error');
+                    </script>
+                    {% elif i.tags == 'warning' %}
+                    <script>
+                        swal('{{i}}','','warning');
+                    </script>
+
+                    {% else %}
+                    <script>
+                        swal('{{i}}','','info');
+                    </script>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+</body>
+</html>
+{% endblock %}

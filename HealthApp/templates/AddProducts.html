@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'admin/assets/css/Newstyle.css' %}">
+</head>
+<body>
+ <div class="box1" >
+                    <h4 class="card-title" style="color:#030e01">Add New Product</h4>
+<div>
+                    <form class="forms-sample" style="margin-top: 50px" action="{% url 'SaveProducts' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                          <div class="form-group">
+                        <label for="exampleSelectGender">Category</label>
+                        <select class="form-control" id="exampleSelectGender" name="Category">
+                            <option>Open select Menu</option>
+                            {% for i in category %}
+                          <option>{{i.CategoryName}}</option>
+                            {% endfor %}
+
+                        </select>
+                      </div><div>
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="ProductName" name="ProductName">
+                      </div>
+                        <div class="input-group col-xs-12">
+                            <label>Upload  Product Image</label>
+<!--                            <input type="text" class="form-control file-upload-info" placeholder="Upload  Category Image">-->
+
+                            <input type="file" name="ProductImage" class="file-upload-browse btn btn-primary" >
+
+                        </div>
+
+
+                      <div class="form-group" style="margin-top: 50px">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="6" placeholder="Description" name="ProductDescription"></textarea>
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputName1">Price</label>
+                        <input type="number" class="form-control"  placeholder="Price" name="Price">
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+                      <button class="btn btn-light">Cancel</button>
+                        <a href="{%url 'ViewProducts' %} " class="btn btn-info btn-fw" >View Products</a>
+                    </form>
+     </div>
+     <div style="margin-left:750px;margin-top:-500px">
+    <img src="{% static 'admin/assets/images/Shop/QNET-Products.webp' %}" width="400px" height="500px"  alt="">
+</div>
+ </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    {% if messages %}
+                    {% for i in messages %}
+                    {% if i.tags == 'success' %}
+                    <script>
+                        swal('{{i}}','','success');
+                    </script>
+                    {% elif i.tags == 'error' %}
+                    <script>
+                        swal('{{i}}','','error');
+                    </script>
+                    {% elif i.tags == 'warning' %}
+                    <script>
+                        swal('{{i}}','','warning');
+                    </script>
+
+                    {% else %}
+                    <script>
+                        swal('{{i}}','','info');
+                    </script>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+</body>
+</html>
+{% endblock %}

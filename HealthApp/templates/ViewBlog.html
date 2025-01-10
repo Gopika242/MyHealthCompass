@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+   <head>
+  	<title>Table 06</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <link rel="stylesheet" href="{% static 'admin/assets/css/mealstyle.css' %}">
+   </head>
+	<body>
+               <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="heading22">Blogs</h4>
+
+
+                    <table class="tableMeal" >
+                      <thead>
+                        <tr>
+
+                            <th>Heading</th>
+                            <th>Published Date</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                    <th width="150px">Actions</th>
+                </tr>
+
+                      </thead>
+                      <tbody>
+            {% for i in blog %}
+                <tr >
+                     <td>{{i.Heading}}</td>
+                    <td>{{i.PublishDate}}</td>
+                    <td>{{i.intro}}</td>
+                    <td><img src="{{i.Cover.url}}" alt="img"></td>
+
+
+                    <td>
+                        <a class="btn btn-success btn-sm"  href="{% url 'EditBlog' B_id=i.id %}">Edit</a>
+                        <a class="btn btn-danger btn-sm"  href="{% url 'DeleteBlog' Did=i.id %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+                </tbody>
+
+                    </table>
+                   <a href="{%url 'AddBlog' %} " class="btn btn-warning btn-fw" style="margin-top: 50px">Add more Blogs</a>
+
+                  </div>
+                </div>
+              </div>
+
+	</body>
+</html>
+
+{% endblock %}

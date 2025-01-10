@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box3" style="margin-top:50px;margin-left:50px">
+<h1 style="color:#020d0f">Add Blogs</h1>
+    <form action="{% url 'UpdateBlog' UpId=Edit.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+        <div>
+           <label for="blogDate">Publish Date</label>
+            <input type="date" id="blogDate" name="PublishDate" class="input-group col-6" style="margin-bottom: 20px;" value="{{Edit.PublishDate}}"><br>
+        </div>
+
+    <div>
+                        <label for="exampleInputName1">Blog Heading</label>
+                        <input type="text" class="input-group col-6" id="exampleInputName1" placeholder="Heading" name="Heading" value="{{Edit.Heading}}"><br><br>
+                      </div>
+      <div class="form-group" style="margin-top: 50px">
+                        <label for="exampleTextarea1">Blog Description</label>
+                        <textarea class="input-group col-6" id="exampleTextarea1" rows="6" placeholder="Blog" name="BlogDescription">{{Edit.BlogDescription}}</textarea>
+                      </div>
+           <div class="form-group" style="margin-top: 50px">
+                        <label for="exampleTextarea1">intro</label>
+                        <textarea class="input-group col-6"  rows="6" placeholder="description" name="intro">{{Edit.intro}}</textarea>
+                      </div>
+         <div>
+                            <label>Upload Image</label>
+                                                 <img src="{{Edit.Cover.url}}" alt="" height="100px" width="200px"><br><br>
+
+                                <input type="file" name="Cover" class="file-upload-browse btn btn-outline-info" >
+
+                        </div>
+    <div style="margin-top: 50px">
+        <button type="submit" class="btn btn-outline-success btn-fw">Submit</button>
+         <a href="{%url 'ViewBlog' %} " class="btn btn-info btn-fw" >View Blogs</a>
+                             </div>
+
+</form>
+
+  <div style="margin-left:400px;margin-top:-500px">
+    <img src="{% static 'admin/assets/images/ropes_155003-21333.avif' %}" alt="" width="800px" height="500px">
+  </div>
+</div>
+
+
+
+</body>
+</html>
+{% endblock %}

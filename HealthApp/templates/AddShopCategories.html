@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <div class="card-body" style="background-color:#bae5f1" >
+                    <h4 class="card-title" style="color:#030e01;">Add New Product Category</h4>
+
+                    <form class="forms-sample" style="margin-top: 50px" action="{% url 'SaveCategory' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="CategoryName">
+                      </div>
+                        <div class="input-group col-xs-12">
+                            <label>Upload  Category Image</label>
+<!--                            <input type="text" class="form-control file-upload-info" placeholder="Upload  Category Image">-->
+
+                            <input type="file" name="CategoryImage" class="file-upload-browse btn btn-primary" >
+
+                        </div>
+
+
+                      <div class="form-group" style="margin-top: 50px">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="6" placeholder="Description" name="Description"></textarea>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+                      <button class="btn btn-light">Cancel</button>
+                        <a href="{%url 'ViewCategory' %} " class="btn btn-info btn-fw" >View Categories</a>
+                    </form>
+                  </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    {% if messages %}
+                    {% for i in messages %}
+                    {% if i.tags == 'success' %}
+                    <script>
+                        swal('{{i}}','','success');
+                    </script>
+                    {% elif i.tags == 'error' %}
+                    <script>
+                        swal('{{i}}','','error');
+                    </script>
+                    {% elif i.tags == 'warning' %}
+                    <script>
+                        swal('{{i}}','','warning');
+                    </script>
+
+                    {% else %}
+                    <script>
+                        swal('{{i}}','','info');
+                    </script>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+</body>
+</html>
+{% endblock %}

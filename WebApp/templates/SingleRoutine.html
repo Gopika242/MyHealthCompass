@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Page container styling */
+        .routine-container {
+            max-width:1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-left:650px;
+            margin-top:20px;
+            height:700px;
+        }
+
+        /* Routine title styling */
+        .routine-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Days and routine styling */
+        .routine-day-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .routine-day-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .routine-days p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .routine-container {
+                padding: 15px;
+            }
+
+            .routine-title {
+                font-size: 20px;
+            }
+
+            .routine-days p {
+                font-size: 14px;
+            }
+
+            .routine-day-card img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
+                    <li class="nav-item "><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item active"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+                    <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+                    <li class="nav-item">
+                        <a href="{% url 'CartPage' %}" class="nav-link">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <sup>{{x}}</sup>
+                           
+                        </a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="hero-wrap js-fullheight">
+    <div class="home-slider owl-carousel js-fullheight">
+        <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/wp13948104-home-workout-wallpapers.jpg' %});">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center">
+                    <div class="col-md-7 ftco-animate">
+                        <div class="text w-100">
+                            <h2 style="color:#000000">Welcome to MyHealthCompass</h2>
+                            <h1 class="mb-4">Get Moving, Get Strong – Your Journey to Fitness Starts Here!</h1>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+    <div class="routine-container" style="background-color:	#ffcfca">
+        {% for i in data %}
+            <!-- Routine Image Carousel -->
+
+
+            <!-- Routine Title -->
+            <h1 class="routine-title">{{ i.Title }}</h1><br><br>
+
+            <!-- Routine Days with image beside -->
+
+                <div class="routine-days">
+                    <p><strong>Monday:</strong> {{ i.Monday }}</p>
+                    <p><strong>Tuesday:</strong> {{ i.Tuesday }}</p>
+                    <p><strong>Wednesday:</strong> {{ i.Wednesday }}</p>
+                    <p><strong>Thursday:</strong> {{ i.Thursday }}</p>
+                    <p><strong>Friday:</strong> {{ i.Friday }}</p>
+                    <p><strong>Saturday:</strong> {{ i.Saturday }}</p>
+                    <p><strong>Sunday:</strong> {{ i.Sunday }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    <div>
+        <img src="{% static 'web/images/exercise/1000_F1.jpg' %}" alt="" style="height:700px;width:600px;margin-top:-800px;margin-left:20px">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

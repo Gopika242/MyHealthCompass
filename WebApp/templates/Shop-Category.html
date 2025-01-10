@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-hVf8ZKR8z4o+HEViQhnN2PrQiRSNSK+qt/SyEU3dFFsRlFFR/2fn05YoJj0p1kgm" crossorigin="anonymous">
+
+    <title>Product Categories</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            padding: 0 15px;
+        }
+        .container2 {
+            padding: 20px;
+        }
+        .product-thumbnail {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-item {
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .icon-cross img {
+            margin-top: 10px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-body {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-top: 3px solid #0d6efd;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+                <li class="nav-item active"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+                <li class="nav-item ">
+                    <a href="{% url 'CartPage' %}" class="nav-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <sup>{{x}}</sup>
+                       
+                    </a>
+                </li>
+                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="hero-wrap js-fullheight">
+	    <div class="home-slider owl-carousel js-fullheight">
+            <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/DeWatermark.ai_1733215764294.png' %});">
+
+	      	<div class="overlay"></div>
+	        <div class="container">
+	          <div class="row no-gutters slider-text align-items-center">
+		          <div class="col-md-7 ftco-animate">
+
+		          </div>
+		        </div>
+	        </div>
+	      </div>
+<div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/istockphoto-1274950193-2048x2048-transformed.jpeg' %});">
+
+	      	<div class="overlay"></div>
+	        <div class="container">
+	          <div class="row no-gutters slider-text align-items-center">
+		          <div class="col-md-7 ftco-animate">
+
+		          </div>
+		        </div>
+	        </div>
+	      </div>
+
+	      <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/istockphoto-1197151984-2048x2048-transformed.jpeg' %});">
+	      	<div class="overlay"></div>
+	        <div class="container">
+	          <div class="row no-gutters slider-text align-items-center justify-content-end">
+		          <div class="col-md-6 ftco-animate">
+
+		          </div>
+		        </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+<div class="container" style="border: 1px solid #f4f6fd;background-color:#f4f6fd;margin-top:50px;margin-bottom:50px">
+    <h3 style="padding:20px">Your Health Journey Starts Here!</h3>
+    <p>
+        Discover a curated selection of products designed to support your journey toward a healthier lifestyle.
+        Whether you're looking to boost your nutrition, enhance your workouts, or expand your knowledge, we have
+        something for everyone.
+        <br><br>
+        <strong>Health Supplements:</strong> Find top-quality supplements to nourish your body and meet your wellness goals.<br>
+        <strong>Fitness Gear:</strong> Explore durable and stylish equipment to level up your fitness routine.<br>
+        <strong>Books & Magazines:</strong> Dive into expert advice and inspiring stories with our collection of health-focused reads.<br><br>
+        Shop now and take the next step toward a healthier, happier you!
+    </p>
+</div>
+
+<div class="container2" style="margin-bottom:50px">
+    <div class="row justify-content-center">
+        {% for c in cat %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card shadow">
+                <img src="{{ c.CategoryImage.url }}" class="card-img-top product-thumbnail" alt="{{ c.CategoryName }}">
+                <div class="card-body" style="background-color:#f4f6fd;">
+                    <a class="product-item" href="{% url 'ProductsFiltered' CatName=c.CategoryName %}">
+                        <h3 class="product-title">{{ c.CategoryName }}</h3>
+                        <span class="icon-cross">
+                            <img src="{% static 'web/images/4361430.png' %}"  width="60px" height="60px" alt="View Icon">
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBeRxccyEtnPBze/Kf9P0CYUhtTU7FZp8YZ6QBJERHWKPfX1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ZfmxFVVQ4s5C6RAcXojCyytn9Gxw27nLRAeO4jpk1Nf38GQcljA5JjC5d5RhuLTO" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock %}

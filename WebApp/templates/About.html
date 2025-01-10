@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa; /* Light gray for overall page background */
+        }
+        .scrollspy-example {
+            position: relative;
+            max-height: 600px;
+            overflow-y: scroll;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color:#d5d7df;
+            border-radius: 8px;
+        }
+        img.img-fluid {
+            max-height: 400px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .navbar {
+            background-color:#FFFFFF ; /*white navbar */
+        }
+        .navbar-brand {
+            color: #00FF00 !important; /* Light green logo */
+        }
+        .navbar-nav .nav-link {
+            color: #000000 !important; /* White for navbar links */
+        }
+        .navbar-nav .nav-link.active {
+            color: 	#000000; /* Light green for active navbar links */
+        }
+        h2 {
+            color: #051153 ; /* Dark green for main heading */
+        }
+        h4 {
+            margin-top: 20px;
+            color: #051153 ; /* Dark gray-blue for subheadings */
+        }
+        p {
+            color: #34495e; /* Medium gray for body text */
+        }
+        .list-group-item-action {
+            font-weight: bold;
+            background-color: #d5d7df ; /* Light green background for list items */
+            color: #051153 ;
+        }
+        .list-group-item-action:hover {
+            background-color: #dbe0fa /* Dark green on hover */
+            color:	#000000; /* White text on hover */
+        }
+    </style>
+</head>
+<body style="background-color:#ecedf3 ">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+	        	<li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+	          <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+              <li class="nav-item">
+                <a href="{% url 'CartPage' %}" class="nav-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <!-- <img src="{% static 'web/images/cart.png' %}" alt="Cart" width="20px" height="20px" style="margin-top:5px;margin-left:-40px"> -->
+                    <sup>{{cart}}</sup>
+                </a>
+            </li>
+                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <img src="{% static 'web/images/background/medium-shot-woman-with-vegetables-water.jpg' %}" height="800px" width="1800px" alt="Background Image">
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">About MyHealthCompass</h2>
+    <p class="text-center">Welcome to MyHealthCompass, your ultimate companion for a healthier lifestyle. Our platform is designed to seamlessly integrate personalized fitness plans, expert nutrition guidance, and powerful progress-tracking tools to help you achieve your wellness goals. Whether you're aiming to lose weight, build strength, or maintain a balanced routine, MyHealthCompass is here to support you every step of the way.</p>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="list-example" class="list-group">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Personalized Plans</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Nutrition Guidance</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">Progress Tracking</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example">
+               <h4 id="list-item-1">1. Personalized Fitness Plans</h4><br>
+                <p>At MyHealthCompass, we believe in personalized fitness journeys tailored to your unique goals. Whether you’re looking to lose weight, gain strength, or maintain a healthy balance, our platform offers curated workout plans designed to meet your objectives. With easy-to-follow routines categorized by fitness levels and goals, MyHealthCompass ensures everyone—from beginners to fitness enthusiasts—can find their perfect match.To cater to these diverse needs, we offer a wide range of personalized workout plans designed with your specific goals in mind. Whether you're aiming to shed extra pounds, build lean muscle, or simply maintain an active lifestyle, our platform has you covered.<br>
+                Tailored to Your Goals: Our plans are developed based on your fitness objectives, current activity levels, and personal preferences.<br>
+                Flexibility in Workouts: You can choose from beginner, intermediate, or advanced routines to ensure you stay challenged and engaged at your pace.<br>
+                Expert-Designed Routines: Collaborations with fitness professionals ensure each plan is safe, effective, and aligned with industry standards.
+                    <br>Dynamic Updates: As your fitness improves, our platform adapts to provide updated recommendations, ensuring your workouts evolve with your progress.</p><br>
+                <h4 id="list-item-2">2. Nutrition Guidance and Healthy Recipes</h4><br>
+<p>Achieving health goals requires a combination of exercise and proper nutrition. MyHealthCompass provides access to a library of nutrition tips, meal plans, and healthy recipes tailored to complement your fitness routine. Whether you’re seeking high-protein meals, vegan options, or balanced diet suggestions, our resources help you fuel your body efficiently and deliciously.Proper nutrition is as important as regular exercise for achieving and maintaining health goals. At MyHealthCompass, we integrate comprehensive dietary support alongside fitness plans, ensuring a holistic approach to your well-being.<br>
+
+Customized Meal Plans: Based on your dietary preferences (e.g., vegan, gluten-free, high-protein), calorie requirements, and fitness goals, our platform offers a variety of meal plans that align with your lifestyle.<br>
+Library of Recipes: Explore a vast collection of healthy, delicious recipes, complete with step-by-step instructions, nutritional breakdowns, and ingredient substitutions.<br>
+Expert Advice: Get insights from nutritionists on portion control, balanced eating habits, and tips for meal prepping to save time without compromising on nutrition.<br>
+Complementary Pairing with Workouts: Each plan is synchronized with your workout intensity and goals. For example, post-workout meals rich in protein help with muscle recovery, while high-carb meals can fuel intense training sessions.Motivation is key to staying consistent, and tracking progress plays a vital role in maintaining that drive. MyHealthCompass provides cutting-edge tools to monitor and analyze your health journey in real time.<br>
+
+Interactive Dashboard: A user-friendly interface allows you to log workouts, dietary intake, and milestones with ease.<br>
+Detailed Analytics: Visualize your progress through charts and graphs that display metrics such as weight changes, calorie consumption, and workout frequency.<br>
+Achievement Notifications: Celebrate small wins like completing a week's routine or hitting a new personal record with encouraging badges and alerts.<br>
+Custom Insights: Gain actionable recommendations based on your logged data, such as increasing cardio duration or adjusting calorie intake.<br>
+Holistic Progress Evaluation: Monitor not just physical changes but also improvements in strength, stamina, and overall health metrics.<br>
+These tools empower you to understand your body's needs and stay motivated throughout your fitness journey.</p><br>
+                <h4 id="list-item-3">3. Progress Tracking and Insights</h4><br>
+ <p>Stay motivated and track your progress with our user-friendly dashboard. MyHealthCompass allows you to log workouts, monitor achievements, and visualize your health journey with insightful charts and analytics. From calorie tracking to weekly activity summaries, our tools empower you to celebrate small victories and stay committed to your health goals.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBeRxccyEtnPBze/Kf9P0CYUhtTU7FZp8YZ6QBJERHWKPfX1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ZfmxFVVQ4s5C6RAcXojCyytn9Gxw27nLRAeO4jpk1Nf38GQcljA5JjC5d5RhuLTO" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock %}

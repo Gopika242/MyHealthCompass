@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+   <head>
+  	<title>Table 06</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <link rel="stylesheet" href="{% static 'admin/assets/css/mealstyle.css' %}">
+   </head>
+	<body>
+               <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="heading22">Meal-Plan Details</h4>
+
+
+                    <table class="tableMeal" >
+                      <thead>
+                        <tr>
+                            <th>Objective</th>
+                            <th>Diet</th>
+                            <th>Diet Name</th>
+                    <th>Breakfast</th>
+                    <th>Calories</th>
+                    <th>Image</th>
+                    <th>Lunch</th>
+                    <th>Calories</th>
+                    <th>Image</th>
+                    <th>Dinner</th>
+                    <th>Calories</th>
+                    <th>Image</th>
+                    <th width="150px">Actions</th>
+                </tr>
+
+                      </thead>
+                      <tbody>
+            {% for i in meals %}
+                <tr >
+                     <td>{{i.Objective}}</td>
+                    <td>{{i.Diet}}</td>
+                    <td>{{i.Plan}}</td>
+                     <td>{{i.BreakFast}}</td>
+                     <td>{{i.BCalorie}}</td>
+                    <td><img src="{{i.BImage.url}}" alt="img"></td>
+
+                     <td>{{i.Lunch}}</td>
+                     <td>{{i.LCalorie}}</td>
+                    <td> <img src="{{i.LImage.url}}" alt="img"></td>
+
+
+                     <td>{{i.Dinner}}</td>
+                     <td>{{i.DCalorie}}</td>
+                     <td><img src="{{i.DImage.url}}" alt="img"></td>
+
+                    <td>
+                        <a class="btn btn-success btn-sm"  href="{% url 'EditMeals' EM_Id=i.id %}">Edit</a>
+                        <a class="btn btn-danger btn-sm"  href="{% url 'DeleteMeals' DM_Id=i.id %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+                </tbody>
+
+                    </table>
+                   <a href="{%url 'AddMealPlan' %} " class="btn btn-warning btn-fw" style="margin-top: 50px">Add more Meal-Plans</a>
+
+                  </div>
+                </div>
+              </div>
+
+	</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #eeeef0 ;
+            font-family: Arial, sans-serif;
+        }
+
+        .box3 {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .box3 img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .box3 h4 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .box3 h6 {
+            color: #007bff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .box3 p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .navbar-brand span {
+            color: #5cb85c;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #5cb85c;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+
+        }
+
+    .product-description {
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.5;
+        text-align: justify; /* For a clean alignment */
+        margin-bottom: 20px;
+    }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+                <li class="nav-item active"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+                <li class="nav-item">
+                    <a href="{% url 'CartPage' %}" class="nav-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <sup>{{x}}</sup>
+                       
+                    </a>
+                </li>
+
+                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Product Display Section -->
+{% for i in pro1 %}
+<div class="box3">
+    <img src="{{ i.ProductImage.url }}" alt="Product Image">
+    <h4>{{ i.ProductName }}</h4>
+    <h4>Category: {{ i.Category }}</h4>
+    <h6>Price: Rs. {{ i.Price }}</h6>
+    <hr class="description-separator">
+    <p class="product-description">{{ i.ProductDescription }}</p>
+
+</div>
+<div class="container">
+<form method="post" action="{% url 'SaveCart' %}">
+    {% csrf_token %}
+    <input type="hidden" value="{{request.session.name}}" name="name" class="form-control"><br>
+    <input type="hidden" value="{{i.ProductName}}" name="ProductName" class="form-control"><br>
+    <input type="hidden" name="ProductImage" value="{{i.ProductImage}}">
+    <input type="number" min="1" name="quantity" id="quantity"  class="form-control" required><br>
+    <input type="text" name="Price" value="{{ i.Price }}" id="Price"  class="form-control"><br>
+    <input type="text" name="total" id="total"  class="form-control"><br>
+
+    <button  class="btn btn-primary"  type="submit" style="margin-bottom:50px">Add to cart</button>
+</form>
+    </div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#quantity").change(function(){
+        x=document.getElementById("quantity").value;
+        y=document.getElementById("Price").value;
+        result=x*y;
+        document.getElementById("total").value=result;
+      })
+    })
+
+</script>
+</body>
+</html>
+
+{% endblock %}

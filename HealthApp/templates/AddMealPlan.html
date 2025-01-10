@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% load static %}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'admin/assets/css/mealstyle.css' %}">
+</head>
+<body>
+<div class="box2" >
+                    <h2 class="card-title" style="color:#030e01">Add Meal-Plans</h2>
+<div>
+                    <form class="forms-sample" style="margin-top: 50px" action="{% url 'SaveMealPlan' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                           <select class="form-control" name="Objective">
+                            <option>Select Fitness Objective</option>
+     <option value="WeightLoss" >Weight Loss</option>
+    <option value="WeightGain" >Weight Gain</option>
+    <option value="Maintain" >Maintain Weight & increase strength</option>
+                           </select>
+                          </div>
+                        <div class="form-group">
+                           <select class="form-control" name="Diet">
+                            <option>Select Dietary Preference</option>
+    <option >Vegan</option>
+    <option >Vegetarian</option>
+                               <option >Non-Vegetarian</option>
+
+    <option >Gluten-free Diet</option>
+                               <option >Ketogenic</option>
+                           </select>
+                          </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Diet plan name" name="Plan"><br>
+                        <label >BreakFast</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="BreakFast" name="BreakFast"><br>
+                            <input type="number" class="form-control"  placeholder="Calorie Count" name="BCalorie"><br>
+                            <div>
+                            <label>Upload Image</label>
+                                <input type="file" name="BImage" class="file-upload-browse btn btn-outline-warning" >
+
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <label >Lunch</label>
+                        <input type="text" class="form-control"  placeholder="Lunch" name="Lunch"><br>
+                            <input type="number" class="form-control"  placeholder="Calorie Count" name="LCalorie"><br>
+                            <div>
+                            <label>Upload Image</label>
+                                <input type="file" name="LImage" class="file-upload-browse btn btn-outline-warning" >
+
+                        </div>
+
+                      </div>
+                         <div class="form-group">
+                        <label >Dinner</label>
+                        <input type="text" class="form-control"  placeholder="Dinner" name="Dinner"><br>
+                             <input type="number" class="form-control"  placeholder="Calorie Count" name="DCalorie"><br>
+                             <div>
+                            <label>Upload Image</label>
+                                <input type="file" name="DImage" class="file-upload-browse btn btn-outline-warning" ><br><br><br>
+
+                        </div>
+                             <div>
+
+
+         <a type="submit" class="btn btn-outline-success btn-fw">Submit</a>
+    <a href="{%url 'ViewMealPlan' %} " class="btn btn-info btn-fw" >View Meal-Plans</a>
+                             </div>
+
+                      </div>
+         </form>
+
+
+</div>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    {% if messages %}
+                    {% for i in messages %}
+                    {% if i.tags == 'success' %}
+                    <script>
+                        swal('{{i}}','','success');
+                    </script>
+                    {% elif i.tags == 'error' %}
+                    <script>
+                        swal('{{i}}','','error');
+                    </script>
+                    {% elif i.tags == 'warning' %}
+                    <script>
+                        swal('{{i}}','','warning');
+                    </script>
+
+                    {% else %}
+                    <script>
+                        swal('{{i}}','','info');
+                    </script>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+
+</body>
+</html>
+{% endblock %}

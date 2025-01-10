@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'web/css/bmi.css' %}">
+    <title>Foodie Calorie Finder</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        color: #000 !important;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .navbar-nav .nav-item .nav-link.active {
+        color: #007bff !important;
+      }
+
+      .navbar-nav .nav-item .nav-link.active::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #007bff;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+      }
+
+      .card {
+        background-color: #f9f9f9;
+        border-radius: 12px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .input-group .form-control {
+        border: 2px solid #28a745;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+      }
+
+      .input-group .btn {
+        border-radius: 0 10px 10px 0;
+      }
+
+      .list-group-item {
+        font-size: 14px;
+        border: none;
+        padding: 10px 15px;
+      }
+
+      .bg-light {
+        background-color: #eef9f1 !important;
+      }
+
+      .text-primary {
+        color: #007bff;
+      }
+
+      .text-success {
+        color: #28a745;
+      }
+
+      .text-center {
+        margin-bottom: 10px;
+      }
+
+      .activity-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      .text-info {
+        color: #17a2b8 !important;
+      }
+    </style>
+  </head>
+
+  <body style="background-color:#e6e9fb">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item active"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+            <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+            <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+            <li class="nav-item">
+              <a href="{% url 'CartPage' %}" class="nav-link">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  <sup>{{x}}</sup>
+                 
+              </a>
+          </li>
+            <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Add other sections here -->
+
+ <div class="container mt-5">
+  <div class="row justify-content-center align-items-start">
+      <div class="col-lg-12 mb-4">
+  <div class="card shadow rounded">
+    <div class="card-body">
+      <h2 class="text-center text-info">Welcome to Your Health Dashboard</h2>
+      <p class="text-center">This dashboard provides you with tools to monitor and manage your health. You can:</p>
+      <ul class="list-group">
+        <li class="list-group-item">Track your Body Mass Index (BMI) by entering your weight and height.</li>
+        <li class="list-group-item">Find the nutritional information and calorie content of foods.</li>
+        <li class="list-group-item">Get personalized recommendations for physical activities to burn the calories you consume.</li>
+        <li class="list-group-item">Edit your personal details, such as weight, height, and gender, to keep track of your progress.</li>
+      </ul>
+      <p class="text-center mt-4">Stay on top of your health and make informed decisions with this simple, easy-to-use dashboard!</p>
+    </div>
+  </div>
+</div>
+
+    <!-- User Profile Section -->
+    <div class="col-lg-12 mb-4" >
+      <div class="card shadow rounded">
+        <div class="card-body">
+          <h2 class="text-center text-info" >User Profile</h2>
+          <div class="text-center mb-3">
+            <img src="{% static 'web/images/person-1.jpg' %}" class="rounded-circle" width="100" height="100" alt="User Profile Picture">
+          </div>
+          <h4 class="text-center text-success">Welcome, {{request.session.name}}!</h4>
+          {% for i in data %}
+          <ul class="list-group" >
+            <li class="list-group-item">Name: <strong>{{i.name}}</strong></li>
+            <li class="list-group-item">Age: <strong>{{i.age}}</strong></li>
+            <li class="list-group-item">Gender: <strong>{{i.gender}}</strong></li>
+            <li class="list-group-item">Objective: <strong>{{i.objective}}</strong></li>
+<!--            <li class="list-group-item">Weight: <strong>{{ user.weight }} kg</strong></li>-->
+<!--            <li class="list-group-item">BMI: <strong>{{bmi}}</strong></li>-->
+          </ul>
+          {% endfor %}
+          <div class="text-center mt-4">
+<!--            <button class="btn btn-warning" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BMI Calculator and Nutrition Finder in Same Row -->
+    <div class="col-lg-6 mb-4" >
+      <div class="card shadow rounded">
+        <div class="card-body">
+          <h2 class="text-center text-primary">BMI Calculator</h2>
+          <form id="bmiForm" action="javascript:void(0);">
+            <div class="mb-3">
+              <label class="form-label">Weight (kg):</label>
+              <input type="number" name="weight" class="form-control" id="weight" min="1" step="0.1" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Height (cm):</label>
+              <input type="number" name="height" class="form-control" id="height" min="50" step="0.1" required>
+            </div>
+
+            <button type="button" class="btn btn-primary w-100 mt-3" id="calculateButton">Calculate BMI</button>
+            <div class="mt-3">
+              <label for="bmi" class="form-label">Your BMI:</label>
+              <input class="form-control" id="bmi" type="text" disabled readonly>
+            </div>
+              <div style="padding-top:10px;text-align:center;color:#007bff" id="statusMessage" class="mt-3 text-center"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Nutrition Finder Section in Same Row -->
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow rounded border-0">
+        <div class="card-body">
+          <h2 class="text-center text-success">Nutrition Finder</h2>
+          <form method="POST" class="mt-3">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                name="query"
+                class="form-control"
+                placeholder="Search for calories in your food..."
+                required
+              />
+              <button class="btn btn-success" type="submit">Find Calories</button>
+            </div>
+          </form>
+
+          {% if error %}
+          <div class="alert alert-danger text-center">{{ error }}</div>
+          {% elif api %}
+          <div class="text-center mt-4">
+            <h5>
+              <strong>{{ api.name|capfirst }}</strong> contains
+              <strong class="text-primary">{{ api.calories }}</strong> calories.
+            </h5>
+          </div>
+
+          <div class="mt-4">
+            <h6 class="fw-bold text-success">Nutritional Values:</h6>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Carbohydrates: <span class="float-end">{{ api.carbohydrates_total_g }}</span>
+              </li>
+              <li class="list-group-item">
+                Protein: <span class="float-end">{{ api.protein_g }}</span>
+              </li>
+              <li class="list-group-item">
+                Fat: <span class="float-end">{{ api.fat_total_g }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-4 p-3 bg-light rounded">
+            <h6 class="fw-bold text-success">To burn {{ api.calories }} calories, you need to:</h6>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <img src="{% static 'web/images/dashboard/running .png' %}" alt="Jogging" class="activity-icon">
+                Jog for <strong>{{ jog_minutes }}</strong> minutes.
+              </li>
+              <li class="list-group-item">
+                <img src="{% static 'web/images/dashboard/yoga.png' %}" alt="Yoga" class="activity-icon">
+                Do power yoga for <strong>{{ yoga_minutes }}</strong> minutes.
+              </li>
+              <li class="list-group-item">
+                <img src="{% static 'web/images/dashboard/weightlifter.png' %}" alt="Weightlifting" class="activity-icon">
+                Lift weights for <strong>{{ gym_minutes }}</strong> minutes.
+              </li>
+              <li class="list-group-item">
+                <img src="{% static 'web/images/dashboard/walking.png' %}" alt="Walking" class="activity-icon">
+                Brisk walk for <strong>{{ walk_minutes }}</strong> minutes.
+              </li>
+            </ul>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBeRxccyEtnPBze/Kf9P0CYUhtTU7FZp8YZ6QBJERHWKPfX1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ZfmxFVVQ4s5C6RAcXojCyytn9Gxw27nLRAeO4jpk1Nf38GQcljA5JjC5d5RhuLTO" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#calculateButton").click(function () {
+        // Getting weight and height values from inputs
+        let weight = parseFloat($("#weight").val());
+        let height = parseFloat($("#height").val()) / 100; // Convert cm to meters
+
+        // Checks if the inputs are valid, isNaN : is not a number
+        if (!isNaN(weight) && !isNaN(height) && height > 0) {
+            // Calculate BMI
+            let bmi = (weight / (height ** 2)).toFixed(2);
+            // Display the result in the BMI field
+            $("#bmi").val(bmi);
+
+            // Determine BMI status
+            let statusMessage = '';
+            if (bmi < 18.5) {
+              statusMessage = 'You are underweight. It\'s important to maintain a balanced diet.';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+              statusMessage = 'You have a normal weight. Keep up the good work!';
+            } else if (bmi >= 25 && bmi < 29.9) {
+              statusMessage = 'You are overweight. Consider adopting a healthier lifestyle.';
+            } else {
+              statusMessage = 'You are obese. It\'s recommended to consult with a healthcare professional for advice.';
+            }
+
+            // Display BMI status message
+            $("#statusMessage").text(statusMessage); // Use jQuery to update text
+        } else {
+            // Clear BMI field and show an alert if inputs are invalid
+            $("#bmi").val("");
+            alert("Please enter valid weight and height values.");
+        }
+    });
+  });
+</script>
+  <script>
+  // Get all navbar links
+  let navbarLinks = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
+  navbarLinks.forEach(link => {
+    // Remove the 'active' class from all links
+    link.classList.remove('active');
+
+    // If the link's href matches the current page URL, add the 'active' class
+    if (link.href === window.location.href) {
+      link.classList.add('active');
+    }
+  });
+</script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBeRxccyEtnPBze/Kf9P0CYUhtTU7FZp8YZ6QBJERHWKPfX1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ZfmxFVVQ4s5C6RAcXojCyytn9Gxw27nLRAeO4jpk1Nf38GQcljA5JjC5d5RhuLTO" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Set active navbar link based on URL
+        let currentUrl = window.location.href;
+        $(".navbar-nav .nav-link").each(function () {
+          if (this.href === currentUrl) {
+            $(this).addClass("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
