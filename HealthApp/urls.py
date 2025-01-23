@@ -59,5 +59,9 @@ path('EditBlog/<int:B_id>/',views.EditBlog,name='EditBlog'),
 path('UpdateBlog/<int:UpId>/',views.UpdateBlog,name='UpdateBlog'),
 path('DeleteBlog/<int:Did>/',views.DeleteBlog,name='DeleteBlog'),
 
+#contacts
+
+path('ViewContact/',views.ViewContact,name='ViewContact'),
+
 ]
 

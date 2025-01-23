@@ -3,7 +3,7 @@ from WebApp import views
 urlpatterns=[
 
 path('Home/',views.Home,name='Home'),
-
+path('DietIntro/',views.DietIntro,name='DietIntro'),
 path('Dishes/',views.Dishes,name='Dishes'),
 path('ShopCategory/',views.ShopCategory,name='ShopCategory'),
 path('ProductsFiltered/<CatName>/',views.ProductsFiltered,name='ProductsFiltered'),

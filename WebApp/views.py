@@ -67,6 +67,7 @@ def Dashboard(request):
             # Log and handle request exceptions
             print(f"API Request Error: {e}")
             return render(request, 'Dashboard.html', {'data':data,'error': 'Failed to fetch data from the API.'})
+            
 
     return render(request, 'Dashboard.html',{'data':data})  # Render form for GET request
 
@@ -74,8 +75,13 @@ def Dishes(re):
     diet=MealPlansDb.objects.all()
     return render(re,'Dishes.html',{'diet':diet})
 def ShopCategory(re):
+    name = re.session.get('name')  # Use get() to safely access the key
+    if not name:
+        return redirect(SignIn)  # Redirect to SignIn if the user is not logged in
+    x=CartDb.objects.filter(name=name)
+    cart=x.count()
     cat=ShopCategoryDb.objects.all()
-    return render(re,'Shop-Category.html',{'cat':cat})
+    return render(re,'Shop-Category.html',{'cat':cat,'cart':cart})
 def ProductsFiltered(re,CatName):
     pro=ShopProductDb.objects.filter(Category=CatName)
     cat1=ShopCategoryDb.objects.filter(CategoryName=CatName)
@@ -262,3 +268,6 @@ def SaveContact(request):
         form = ContactForm()  # Empty form for GET request
     
     return render(request, 'Contact.html', {'form': form})
+
+def DietIntro(re):
+    return render(re,'Dietintro.html')

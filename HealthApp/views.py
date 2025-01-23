@@ -6,6 +6,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
+from WebApp.models import ContactDb,OrderDb
 
 
 # Create your views here.
@@ -317,6 +318,10 @@ def DeleteBlog(re,Did):
     x=BlogDb.objects.filter(id=Did)
     x.delete()
     return redirect(ViewBlog)
+
+def ViewContact(re):
+    contacts=ContactDb.objects.all()
+    return render(re,'ViewContacts.html',{'contacts':contacts})
 
 
 

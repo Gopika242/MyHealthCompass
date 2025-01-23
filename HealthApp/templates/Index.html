@@ -1,383 +1,560 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Connect Plus</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/mdi/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/css/vendor.bundle.base.css' %}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/font-awesome/css/font-awesome.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{% static 'admin/assets/css/style.css' %}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.png' %}" />
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a  href="{% url 'Index' %}"><img src="{% static 'admin/assets/images/brand_icons/HealthCompass.png' %}" alt="logo" width="200px" height="150px" style="margin-top:50px;margin-bottom:50px;margin-left:-45px"/></a>
-<!--          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{% static 'admin/assets/images/logo-mini.svg' %}" alt="logo" /></a>-->
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-stretch">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="mdi mdi-menu"></span>
-          </button>
-          <div class="search-field d-none d-xl-block">
-            <form class="d-flex align-items-center h-100" action="#">
-              <div class="input-group">
-                <div class="input-group-prepend bg-transparent">
-                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                </div>
-                <input type="text" class="form-control bg-transparent border-0" placeholder="Search products">
-              </div>
-            </form>
-          </div>
-          <ul class="navbar-nav navbar-nav-right">
-<!--            <li class="nav-item  dropdown d-none d-md-block">-->
-<!--              <a class="nav-link dropdown-toggle" id="reportDropdown" href="#" data-toggle="dropdown" aria-expanded="false"> Reports </a>-->
-<!--              <div class="dropdown-menu navbar-dropdown" aria-labelledby="reportDropdown">-->
-<!--                <a class="dropdown-item" href="#">-->
-<!--                  <i class="mdi mdi-file-pdf mr-2"></i>PDF </a>-->
-<!--                <div class="dropdown-divider"></div>-->
-<!--                <a class="dropdown-item" href="#">-->
-<!--                  <i class="mdi mdi-file-excel mr-2"></i>Excel </a>-->
-<!--                <div class="dropdown-divider"></div>-->
-<!--                <a class="dropdown-item" href="#">-->
-<!--                  <i class="mdi mdi-file-word mr-2"></i>doc </a>-->
-<!--              </div>-->
-<!--            </li>-->
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Connect Plus</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'admin/assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/vendors/flag-icon-css/css/flag-icon.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'admin/assets/vendors/font-awesome/css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/style.css' %}">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.png' %}" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(200px);
+  }
+}
+
+/* Use transform to move the element */
+.element {
+  animation: move 2s ease-in-out;
+}
+@media (max-width: 768px) {
+  .navbar-menu-wrapper {
+    display: block; /* Ensure the wrapper is displayed on mobile */
+    visibility: visible;
+  }
+  
+  /* This ensures the dropdown button remains accessible */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* Optional: adjust positioning if needed */
+  .navbar-toggler {
+    position: relative;
+    z-index: 1051; /* Ensure it's above the content */
+  }
+}
+@media (max-width: 768px) {
+  .navbar-menu-wrapper {
+    visibility: visible; /* Make the wrapper visible */
+    opacity: 1; /* Ensure it isn't transparent */
+  }
+}
+@media (max-width: 768px) {
+  .navbar-menu-wrapper {
+    display: none; /* Hide by default */
+  }
+
+  .navbar-menu-wrapper.d-block {
+    display: block; /* Show when toggled */
+  }
+}
+.navbar-nav .dropdown-menu {
+  z-index: 1100; /* Make sure dropdown is above other elements */
+}
 
 
-            <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+.navbar {
+  
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures it's always on top */
+}
+.navbar {
+    overflow: hidden;
+}
+.navbar h2 {
+    white-space: nowrap; /* Prevents wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if text is truncated */
+}
+.navbar h2 {
+    margin: 0;
+    margin-left:50px;
+    line-height: 50px; /* Matches the navbar height */
+    position: relative; /* Prevents it from detaching */
+    top: 0;
+    left: 0; /* Resets unintended top movement */
+}
+.dropdown-menu {
+    display: block;
+    visibility: visible;
+}
+/* Adjustments for fixed sidebar and navbar */
+body {
+  margin-top: 60px; /* Make space for fixed navbar */
+}
 
-                <div class="nav-profile-text">
-                  {% if request.session.username %}
-                     <div class="nav-profile-img">
-                  <img src="{% static 'admin/assets/images/faces/face28.png' %}" alt="image">
-                </div>
-                  <p class="mb-1 text-black">{{request.session.username}}</p>
-                  {% endif %}
-                </div>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
-<!--                <div class="p-3 text-center bg-primary">-->
-<!--                  <img class="{% static 'admin/img-avatar img-avatar48 img-avatar-thumb' %}" src="assets/images/faces/face28.png" alt="">-->
-<!--                </div>-->
-                <div class="p-2">
-{% if request.session.username %}
-                  <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="{% url 'AdminLogout' %}">
-                    <span>Log Out</span>
-                    <i class="mdi mdi-logout ml-1"></i>
-                  </a>
-                </div>
-                  {% else %}
-                <div class="sidebar-user-menu">
-                <a href="{% url 'LoginPage' %}" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
-                  <span class="menu-title">LogIn</span></a>
-              </div>
-                {% endif %}
-              </div>
+.container-scroller {
+  display: flex;
+}
 
+.sidebar {
+  position: fixed;
+  top: 60px; /* Adjust to account for fixed navbar */
+  left: 0;
+  height: calc(100vh - 60px); /* Ensure sidebar takes full height minus navbar */
+  width: 250px; /* Width of the sidebar */
+  background-color: black;
+  z-index: 1000;
+}
 
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="mdi mdi-menu"></span>
-          </button>
-             </li>
-          </ul>
-        </div>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-          <ul class="nav">
-<!--            <li class="nav-item nav-category">Main</li>-->
-            <li class="nav-item" style="margin-top:50px;">
-              <a class="nav-link" href="{% url 'Index' %}">
-                <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
-                <span class="menu-title">Dashboard</span>
-              </a>
-            </li>
-          <li class="nav-item">
-  <a class="nav-link" data-toggle="collapse" href="#shop-menu" aria-expanded="false" aria-controls="shop-menu">
-    <span class="icon-bg"><i><img src="{% static 'admin/assets/images/shop.jpg' %}" alt="" width="30px" height="20px"></i></span>
-    <span class="menu-title">Shop</span>
-    <i class="menu-arrow"></i>
-  </a>
-  <div class="collapse" id="shop-menu">
-    <ul class="nav flex-column sub-menu">
-      <li class="nav-item"> <a class="nav-link" href="{% url 'AddShopCategory' %}">Add Category</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{% url 'ViewCategory' %}">View Category</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{% url 'AddProducts' %}">Add Product</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{% url 'ViewProducts' %}">View Product</a></li>
-    </ul>
-  </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" data-toggle="collapse" href="#meal-plan-menu" aria-expanded="false" aria-controls="meal-plan-menu">
-    <span class="icon-bg"><i><img src="{% static 'admin/assets/images/meals.jpg' %}" alt="" width="30px" height="20px"></i></span>
-    <span class="menu-title">Meal-Plans</span>
-    <i class="menu-arrow"></i>
-  </a>
-  <div class="collapse" id="meal-plan-menu">
-    <ul class="nav flex-column sub-menu">
-      <li class="nav-item"> <a class="nav-link" href="{% url 'AddMealPlan' %}">Add Meal Plans</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{% url 'ViewMealPlan' %}">View Meal Plans</a></li>
+.main-panel {
+  margin-left: 250px; /* Offset the main content by the sidebar width */
+  padding: 20px;
+  width: calc(100% - 250px); /* Ensure content width is adjusted */
+  transition: margin-left 0.3s ease; /* Smooth transition when toggling sidebar */
+}
 
-    </ul>
-  </div>
-</li>
-   <li class="nav-item">
-  <a class="nav-link" data-toggle="collapse" href="#exercise-plans" aria-expanded="false" aria-controls="exercise-plans">
-    <span class="icon-bg"><i><img src="{% static 'admin/assets/images/workout.jpg' %}" alt="" width="30px" height="28px"></i></span>
-    <span class="menu-title">Exercise-Plans</span>
-    <i class="menu-arrow"></i>
-  </a>
-  <div class="collapse" id="exercise-plans">
-    <ul class="nav flex-column sub-menu">
-      <li class="nav-item"> <a class="nav-link" href="{% url 'AddExercise' %}">Add Exercise Plans</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{%url 'ViewExercise' %}">View Workouts</a></li>
-        <li class="nav-item"> <a class="nav-link" href="{%url 'AddWorkoutPlans' %}">Add Workout Plans</a></li>
-        <li class="nav-item"> <a class="nav-link" href="{%url 'ViewWorkoutPlans' %}">View Workout Plans</a></li>
-    </ul>
-  </div>
-</li>
-              <li class="nav-item">
-  <a class="nav-link" data-toggle="collapse" href="#blogs" aria-expanded="false" aria-controls="blogs">
-    <span class="icon-bg"><i><img src="{% static 'admin/assets/images/blog.jpg' %}" alt="" width="30px" height="30px"></i></span>
-    <span class="menu-title">Blogs</span>
-    <i class="menu-arrow"></i>
-  </a>
-  <div class="collapse" id="blogs">
-    <ul class="nav flex-column sub-menu">
-      <li class="nav-item"> <a class="nav-link" href="{% url 'AddBlog' %}">Add Blogs</a></li>
-      <li class="nav-item"> <a class="nav-link" href="{% url 'ViewBlog' %}">View Blogs</a></li>
+.sidebar .nav-item {
+  padding-top: 20px; /* Adjust padding for nav items */
+}
 
-    </ul>
-  </div>
-</li>
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1050; /* Keep navbar above everything */
+  background-color: black;
+  padding: 10px 20px;
+}
 
-            <li class="nav-item sidebar-user-actions">
-              <div class="user-details">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <div class="d-flex align-items-center">
+.navbar-menu-wrapper {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.navbar-toggler {
+  display: none; /* Hide the toggle button if it's not needed */
+}
+
+@media (max-width: 768px) {
+  .main-panel {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 60px; /* Ensure it stays below the navbar */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px); /* Adjust height when in mobile view */
+  }
+
+  .navbar-toggler {
+    display: block; /* Show toggle button in mobile view */
+  }
+}
 
 
-                          {% if request.session.username %}
-                           <div class="sidebar-profile-img">
-                        <img src="{% static 'admin/assets/images/faces/face28.png' %}" alt="image">
-                      </div>
-                        <p class="mb-1">{{request.session.username}}</p>
-                          {% endif %}
-                      </div>
-
-                  </div>
-
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item sidebar-user-actions">
-                {% if request.session.username %}
-              <div class="sidebar-user-menu">
-                <a href="{% url 'AdminLogout' %}" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
-                  <span class="menu-title">Log Out</span></a>
-              </div>
-                {% else %}
-                <div class="sidebar-user-menu">
-                <a href="{% url 'LoginPage' %}" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
-                  <span class="menu-title">LogIn</span></a>
-              </div>
-                {% endif %}
-            </li>
-          </ul>
-        </nav>
-        <!-- partial -->
-        {% block content %}
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row" id="proBanner">
-<!--              <div class="col-12">-->
-<!--                <span class="d-flex align-items-center purchase-popup">-->
-<!--                  <p>Like what you see? Check out our premium version for more.</p>-->
-<!--                  <a href="https://github.com/BootstrapDash/ConnectPlusAdmin-Free-Bootstrap-Admin-Template" target="_blank" class="btn ml-auto download-button">Download Free Version</a>-->
-<!--                  <a href="http://www.bootstrapdash.com/demo/connect-plus/jquery/template/" target="_blank" class="btn purchase-button">Upgrade To Pro</a>-->
-<!--                  <i class="mdi mdi-close" id="bannerClose"></i>-->
-<!--                </span>-->
-<!--              </div>-->
-            </div>
-            <div class="d-xl-flex justify-content-between align-items-start">
-              <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
-              <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
-
-                <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
-                  <button class="btn bg-white  p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#021312> <i class="mdi mdi-calendar mr-1" style="color:#021312 "></i>{{date}}</button>
-<!--                   <h4>{{date}}</h4>-->
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border {">
-                  <ul class="nav nav-tabs tab-transparent" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link" id="home-tab" data-toggle="tab" href="#" role="tab" aria-selected="true">Users</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" id="business-tab" data-toggle="tab" href="#business-1" role="tab" aria-selected="false">Business</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="performance-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Performance</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="conversion-tab" data-toggle="tab" href="#" role="tab" aria-selected="false">Conversion</a>
-                    </li>
-                  </ul>
-                  <div class="d-md-block d-none">
-                    <a href="#" class="text-light p-1"><i class="mdi mdi-view-dashboard"></i></a>
-                    <a href="#" class="text-light p-1"><i class="mdi mdi-dots-vertical"></i></a>
-                  </div>
-                </div>
-                <div class="tab-content tab-transparent-content">
-                  <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
-                    <div class="row">
-                         <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h4 class="mb-4 text-dark font-weight-bold">Exercises & Plans Overview</h4><br>
-                              <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
-                                  <i ><img src="{% static 'admin/assets/images/2075827.jpg' %}" alt="" width="140px" height="100px"></i></div>
-                                  <h4 class="mb-4 text-dark font-weight-bold">Workout plans: {{WPlans}}</h4>
-                            <h4 class="mb-4 text-dark font-weight-bold">Exercises: {{workouts}}</h4>
 
 
-<!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
-                          </div>
-                        </div>
-                      </div>
-                         <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                              <h4 class="mb-4 text-dark font-weight-bold">Diet Plans Overview</h4><br><br>
-                           <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
-                               <i ><img src="{% static 'admin/assets/images/mealplan icon.webp' %}" alt="" width="100px" height="100px"></i></div>
-                            <h4 class="mb-4 text-dark font-weight-bold">Meal-Plans: {{MealsCount}}</h4>
+</style>
+</head>
 
-<!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
-                          </div>
-                        </div>
-                      </div>
-                   <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body text-center">
-            <h4 class="mb-4 text-dark font-weight-bold">Stock Overview</h4><br><br>
-            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent" style="position: relative; margin-bottom: 20px;">
-                <i><img src="{% static 'admin/assets/images/lx56bpt9.png' %}" alt="" width="100px" height="80px"></i>
-            </div>
-            <h4 class="mb-4 text-dark font-weight-bold">Categories: {{count1}}</h4>
-            <h4 class="mb-4 text-dark font-weight-bold">Products: {{ProCount}}</h4>
-        </div>
-    </div>
-</div>
+<body class="bg-white">
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+      style="background-color: black;">
+      
+        <a href="{% url 'Index' %}">
+          <h2><i class="fa fa-heartbeat" style="color: #69ec72;"></i>MyHealthCompass</h2>
+          <!-- <img src="{% static 'admin/assets/images/brand_icons/HealthCompass.png' %}" alt="logo" class="logo-img"  height=""/> -->
+        </a>
+   
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center sidebar-toggle-btn" type="button" data-toggle="minimize" aria-label="Toggle sidebar">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        
+         
+        
+        
+        <div class="d-xl-flex justify-content-between align-items-start">
+          <h2 class="text-white font-weight-bold mb-2"> Overview dashboard </h2>
+          <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 
-
-                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>
-                            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">Increased since yesterday</p>
-<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>-->
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                </div>
-              </div>
+            <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
+              <button class="btn bg-black  p-3 d-flex align-items-center mt-2" type="button" id="dropdownMenuButton1"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#f0f7f7;"> <i class=" mdi
+                mdi-calendar mr-1" style="color:#f0f7f7 "></i>{{date}}</button>
+              <!--                   <h4>{{date}}</h4>-->
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="footer-inner-wraper">
-              <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © abcd.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="" target="_blank">Dashboard templates</a> from abcd.com</span>
-              </div>
-            </div>
-          </footer>
-          <!-- partial -->
         </div>
-        {% endblock %}
-        <!-- main-panel ends -->
+
+        <!-- <div class="search-field d-none d-xl-block ml-auto">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search products">
+            </div>
+          </form>
+        </div> -->
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="{% static 'admin/assets/images/faces/face28.png' %}" alt="image">
+              </div>
+              {% if request.session.username %}
+                <p class="mb-1 text-white">{{ request.session.username }}</p>
+              {% endif %}
+            </a>
+            <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown">
+              {% if request.session.username %}
+                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="{% url 'AdminLogout' %}">
+                  <span>Log Out</span>
+                  <i class="mdi mdi-logout ml-1"></i>
+                </a>
+              {% else %}
+                <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="{% url 'LoginPage' %}">
+                  <span>Log In</span>
+                  <i class="mdi mdi-login ml-1"></i>
+                </a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
       </div>
-      <!-- page-body-wrapper ends -->
+    </nav>
+
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: black; ">
+      <ul class="nav" style="margin-top:30px;">
+        <li class="nav-item" style="margin-top: 100px;">
+          <a class="nav-link" href="{% url 'Index' %}">
+            <span class="icon-bg"><i class="fa-solid fa-chart-bar" style="color: #69ec72;"></i></span>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#shop-menu" aria-expanded="false" aria-controls="shop-menu">
+            <span class="icon-bg"><i class="fa-solid fa-store" style="color: #69ec72;"></i></span>
+            <span class="menu-title">Shop</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="shop-menu">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddShopCategory' %}">Add Category</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewCategory' %}">View Category</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddProducts' %}">Add Product</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewProducts' %}">View Product</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#meal-plan-menu" aria-expanded="false"
+            aria-controls="meal-plan-menu">
+            <span class="icon-bg"><i class="fa-solid fa-apple-whole" style="color: #69ec72;"></i></span>
+            <span class="menu-title">Meal-Plans</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="meal-plan-menu">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddMealPlan' %}">Add Meal Plans</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewMealPlan' %}">View Meal Plans</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#exercise-plans" aria-expanded="false"
+            aria-controls="exercise-plans">
+            <span class="icon-bg"><i class="fa-solid fa-dumbbell" style="color: #69ec72;"></i></span>
+            <span class="menu-title">Exercise-Plans</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="exercise-plans">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddExercise' %}">Add Exercise Plans</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewExercise' %}">View Workouts</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddWorkoutPlans' %}">Add Workout Plans</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewWorkoutPlans' %}">View Workout Plans</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#blogs" aria-expanded="false" aria-controls="blogs">
+            <span class="icon-bg"><i class="fa-solid fa-pencil" style="color: #69ec72;"></i></span>
+            <span class="menu-title">Blogs</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="blogs">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="{% url 'AddBlog' %}">Add Blogs</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'ViewBlog' %}">View Blogs</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'ViewContact' %}">
+            <span class="icon-bg">
+              <i class="fa-solid fa-comments" style="color: #69ec72;"></i>
+            </span>
+            <span class="menu-title">Feedbacks & Queries</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    {% block content %}
+    <div class="main-panel">
+      <div class="content-wrapper">
+        
+      
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-sm-flex justify-content-between align-items-center transaparent-tab-border {">
+            
+            </div>
+            <div class="tab-content tab-transparent-content">
+              <div class="tab-pane fade show active" id="business-1" role="tabpanel" aria-labelledby="business-tab">
+                <div class="row">
+                  <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <h4 class="mb-4 text-dark font-weight-bold">Exercises & Plans Overview</h4><br>
+                        <div
+                          class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
+                          <i><img src="{% static 'admin/assets/images/2075827.jpg' %}" alt="" width="140px"
+                              height="100px"></i>
+                        </div>
+                        <h4 class="mb-4 text-dark font-weight-bold">Workout plans: {{WPlans}}</h4>
+                        <h4 class="mb-4 text-dark font-weight-bold">Exercises: {{workouts}}</h4>
+
+
+                        <!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
+                        <!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <h4 class="mb-4 text-dark font-weight-bold">Diet Plans Overview</h4><br><br>
+                        <div
+                          class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
+                          <i><img src="{% static 'admin/assets/images/mealplan icon.webp' %}" alt="" width="100px"
+                              height="100px"></i>
+                        </div>
+                        <h4 class="mb-4 text-dark font-weight-bold">Meal-Plans: {{MealsCount}}</h4>
+
+                        <!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
+                        <!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <h4 class="mb-4 text-dark font-weight-bold">Stock Overview</h4><br><br>
+                        <div
+                          class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"
+                          style="position: relative; margin-bottom: 20px;">
+                          <i><img src="{% static 'admin/assets/images/lx56bpt9.png' %}" alt="" width="100px"
+                              height="80px"></i>
+                        </div>
+                        <h4 class="mb-4 text-dark font-weight-bold">Categories: {{count1}}</h4>
+                        <h4 class="mb-4 text-dark font-weight-bold">Products: {{ProCount}}</h4>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body text-center">
+                        <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>
+                        <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>
+                        <div
+                          class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent">
+                          <i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i>
+                        </div>
+                        <p class="mt-4 mb-0">Increased since yesterday</p>
+                        <!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>-->
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <footer class="footer">
+        <div class="footer-inner-wraper">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © abcd.com
+              2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href=""
+                target="_blank">Dashboard templates</a> from abcd.com</span>
+          </div>
+        </div>
+      </footer>
+      <!-- partial -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="{% static 'admin/assets/vendors/js/vendor.bundle.base.js' %}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{% static 'admin/assets/vendors/chart.js/Chart.min.js' %}"></script>
-    <script src="{% static 'admin/assets/vendors/jquery-circle-progress/js/circle-progress.min.js' %}"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{% static 'admin/assets/js/off-canvas.js' %}"></script>
-    <script src="{% static 'admin/assets/js/hoverable-collapse.js' %}"></script>
-    <script src="{% static 'admin/assets/js/misc.js' %}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="{% static 'admin/assets/js/dashboard.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% endblock %}
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'admin/assets/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'admin/assets/vendors/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'admin/assets/vendors/jquery-circle-progress/js/circle-progress.min.js' %}"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'admin/assets/js/off-canvas.js' %}"></script>
+  <script src="{% static 'admin/assets/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'admin/assets/js/misc.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+   <script> // Sidebar toggle button for mobile view
+    document.querySelector('.sidebar-toggle-btn').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('active');
+      document.querySelector('.main-panel').classList.toggle('shift');
+    });</script>
+ 
+  
+  <script src="{% static 'admin/assets/js/dashboard.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  $(document).ready(function() {
+    // Ensure the sidebar toggle works
+    $(".sidebar-toggle-btn").on("click", function() {
+      $("#sidebar").toggleClass("active");
+      $(".main-panel").toggleClass("sidebar-visible");
+    });
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    {% if messages %}
-                    {% for i in messages %}
-                    {% if i.tags == 'success' %}
-                    <script>
-                        swal('{{i}}','','success');
-                    </script>
-                    {% elif i.tags == 'error' %}
-                    <script>
-                        swal('{{i}}','','error');
-                    </script>
-                    {% elif i.tags == 'warning' %}
-                    <script>
-                        swal('{{i}}','','warning');
-                    </script>
+    // Ensure dropdown functionality for profile and other dropdowns
+    $('[data-toggle="dropdown"]').on("click", function(e) {
+      var $el = $(this).next('.dropdown-menu');
+      var isVisible = $el.is(':visible');
+      
+      $('.dropdown-menu').hide();
+      if (!isVisible) {
+        $el.show();
+      }
+      e.stopPropagation();
+    });
 
-                    {% else %}
-                    <script>
-                        swal('{{i}}','','info');
-                    </script>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
+    $(document).on("click", function(e) {
+      if (!$(e.target).closest('.dropdown').length) {
+        $('.dropdown-menu').hide();
+      }
+    });
+  });
+</script>
+<script>
+  $('[data-toggle="dropdown"]').on("click", function(e) {
+        var $el = $(this).next('.dropdown-menu');
+        var isVisible = $el.is(':visible');
+        $('.dropdown-menu').hide();
+        if (!isVisible) {
+          $el.show();
+        }
+        e.stopPropagation();
+      });
 
-    <!-- End custom js for this page -->
+      $(document).on("click", function(e) {
+        if (!$(e.target).closest('.dropdown').length) {
+          $('.dropdown-menu').hide();
+        }
+      });
+    
+</script>
 
-  </body>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success');
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error');
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning');
+  </script>
+
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info');
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <script>
+ const bannerClose = document.querySelector('#bannerClose');
+if (bannerClose) {
+    bannerClose.addEventListener('click', function() {
+        document.querySelector('#proBanner').classList.add('d-none');
+    });
+}
+
+const wrapButton = document.querySelector('.wrap-button');
+if (wrapButton) {
+    wrapButton.addEventListener('click', function() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            navbar.classList.toggle('wrapped');
+        }
+    });
+}
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- End custom js for this page -->
+
+</body>
+
 </html>
