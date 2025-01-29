@@ -67,33 +67,57 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span> Menu
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
-                <li class="nav-item"><a href="{% url 'DietIntro' %}" class="nav-link">Diet plans</a></li>
-                <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
-                <li class="nav-item active"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
-                <li class="nav-item ">
-                    <a href="{% url 'CartPage' %}" class="nav-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <sup>{{cart}}</sup>
-                       
-                    </a>
-                </li>
-                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="fa fa-bars"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
+					<li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+					<li class="nav-item"><a href="{% url 'DietIntro' %}" class="nav-link">Diets</a></li>
+					<li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+					<li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+					<li class="nav-item">
+						<a href="{% url 'CartPage' %}" class="nav-link">
+							<i class="fa-solid fa-cart-shopping"></i>
+							<!-- <img src="{% static 'web/images/cart.png' %}" alt="Cart" width="20px" height="20px" style="margin-top:5px;margin-left:-40px"> -->
+							<sup>{{cart}}</sup>
+						</a>
+					</li>
+					<li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+					<li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+				</ul>
+			</div>
+			{% if request.session.name %}
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+					aria-expanded="false"
+					style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">Welcome
+					{{request.session.name}}</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+				</ul>
+			</div>
+			{% else %}
+
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+					aria-expanded="false" style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">My
+					Account</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'SignIn' %}">Login</a></li>
+					<li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</nav>
     <div class="hero-wrap js-fullheight">
 	    <div class="home-slider owl-carousel js-fullheight">
             <div class="slider-item js-fullheight" style="background-image:url({% static 'web/images/exercise/DeWatermark.ai_1733215764294.png' %});">
