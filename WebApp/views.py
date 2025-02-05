@@ -9,6 +9,7 @@ import razorpay
 from HealthApp.models import MealPlansDb,ShopCategoryDb,ShopProductDb,videoDb,WorkoutPlansDb,BlogDb
 from WebApp.models import SignUpDb,CartDb,OrderDb,ContactDb
 from WebApp.forms import *
+from .utils import *
 
 openai.api_key = "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"
 
@@ -21,7 +22,8 @@ def Home(re):
     x=CartDb.objects.filter(name=name)
     cart=x.count()
     Blogs=BlogDb.objects.all()
-    return render(re,'Home.html',{'cart':cart,'Blogs':Blogs})
+    daily_quote=fetch_fitness_quote()
+    return render(re,'Home.html',{'cart':cart,'Blogs':Blogs,"daily_quote":daily_quote})
 
 
 def Dashboard(request):
@@ -66,7 +68,10 @@ def Dashboard(request):
         except requests.exceptions.RequestException as e:
             # Log and handle request exceptions
             print(f"API Request Error: {e}")
-            return render(request, 'Dashboard.html', {'data':data,'error': 'Failed to fetch data from the API.'})
+            
+            daily_quote=fetch_fitness_quote()
+
+            return render(request, 'Dashboard.html', {'data':data,'error': 'Failed to fetch data from the API.',"daily_quote":daily_quote})
             
 
     return render(request, 'Dashboard.html',{'data':data})  # Render form for GET request
