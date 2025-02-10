@@ -4,6 +4,7 @@ urlpatterns=[
 
 path('Home/',views.Home,name='Home'),
 path('DietIntro/',views.DietIntro,name='DietIntro'),
+path('search-recipe/', views.search_recipe, name='search_recipe'),
 path('Dishes/',views.Dishes,name='Dishes'),
 path('ShopCategory/',views.ShopCategory,name='ShopCategory'),
 path('ProductsFiltered/<CatName>/',views.ProductsFiltered,name='ProductsFiltered'),

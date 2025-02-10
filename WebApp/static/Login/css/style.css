@@ -4,10 +4,12 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
   display: -webkit-flex; }
 
 /* @extend list-type-ulli; */
-list-type-ulli, .socials {
+.socials {
   list-style-type: none;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
+
 
 /* poppins-300 - latin */
 @font-face {
@@ -166,7 +168,8 @@ input[type=radio] {
 
 img {
   max-width: 100%;
-  height: auto; }
+  height: auto; 
+width: 40vw;}
 
 figure {
   margin: 0; }

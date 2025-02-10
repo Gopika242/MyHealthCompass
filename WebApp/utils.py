@@ -1,5 +1,7 @@
 import random
 from django.core.cache import cache
+import requests
+from django.conf import settings
 
 # Static list of fitness quotes
 fitness_quotes = [
@@ -65,6 +67,24 @@ def fetch_fitness_quote():
             quote = f"Error fetching quote: {str(e)}"
     
     return quote
+
+
+
+def get_recipe(query):
+    # Construct API URL with query
+    api_url = f'https://api.api-ninjas.com/v1/recipe?query={query}'
+    
+    headers = {
+        'X-Api-Key': settings.API_NINJAS_KEY
+    }
+    
+    response = requests.get(api_url, headers=headers)
+    
+    # Check if the response is successful
+    if response.status_code == 200:
+        return response.json()  # Return the JSON response
+    else:
+        return None  # Return None in case of an error or failure
 
 
 # import requests

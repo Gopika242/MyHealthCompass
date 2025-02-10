@@ -60,6 +60,21 @@
 			{% endif %}
 		</div>
 	</nav>
+<!-- search_recipe.html -->
+<form method="GET" action="{% url 'search_recipe' %}">
+    <input type="text" name="query" placeholder="Search for a recipe">
+    <button type="submit">Search</button>
+</form>
+
+{% if recipes %}
+    <h2>Recipe Results:</h2>
+    <ul>
+        {% for recipe in recipes %}
+            <li>{{ recipe.title }} - {{ recipe.servings }}</li>
+            <li>Ingredients: {{ recipe.ingredients }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 {% for i in diet %}
 <div class="container mt-5">

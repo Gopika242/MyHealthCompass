@@ -10,6 +10,10 @@ from HealthApp.models import MealPlansDb,ShopCategoryDb,ShopProductDb,videoDb,Wo
 from WebApp.models import SignUpDb,CartDb,OrderDb,ContactDb
 from WebApp.forms import *
 from .utils import *
+import requests
+from django.conf import settings
+from django.http import JsonResponse
+from .utils import get_recipe
 
 openai.api_key = "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"
 
@@ -79,6 +83,22 @@ def Dashboard(request):
 def Dishes(re):
     diet=MealPlansDb.objects.all()
     return render(re,'Dishes.html',{'diet':diet})
+def search_recipe(request):
+    query = request.GET.get('query', '')
+    if query:
+        recipes = get_recipe(query)
+        return render(request, 'search_recipe.html', {'recipes': recipes})
+    return render(request, 'search_recipe.html')
+def get_recipe(query, offset=0):
+    api_url = f'https://api.api-ninjas.com/v1/recipe?query={query}&offset={offset}'
+    headers = {'X-Api-Key': settings.API_NINJAS_KEY}
+    
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
 def ShopCategory(re):
     name = re.session.get('name')  # Use get() to safely access the key
     if not name:

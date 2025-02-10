@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+# from django.conf import settings
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$n&(!*upy2l%s(q!i*yyym(rn=mty=44ckvi+@3q_k=v4%d#xq'
+API_NINJAS_KEY = "o3t54D+t/feLQyikOG8/dg==YGcjnU5cIIoEHtyM"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
