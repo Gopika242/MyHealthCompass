@@ -1,133 +1,122 @@
 {% extends 'Home.html' %}
 {% load static %}
 {% block content %}
-	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<body style="background-color: #f2fdf0;">
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span> Menu
-        </button>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <body style="background-color: #030902;">
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                    aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span> Menu
+                </button>
+        
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item "><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+                        <li class="nav-item"><a href="{% url 'DietIntro' %}" class="nav-link">Diets</a></li>
+                        <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+                        <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+                        <li class="nav-item">
+                            <a href="{% url 'CartPage' %}" class="nav-link">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <!-- <img src="{% static 'web/images/cart.png' %}" alt="Cart" width="20px" height="20px" style="margin-top:5px;margin-left:-40px"> -->
+                                <sup>{{cart}}</sup>
+                            </a>
+                        </li>
+                        <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+                        <li class="nav-item active"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
+                {% if request.session.name %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">Welcome
+                        {{request.session.name}}</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+                    </ul>
+                </div>
+                {% else %}
+        
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">My
+                        Account</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'SignIn' %}">Login</a></li>
+                        <li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </nav>   
+    
+        <div class="container mx-auto mt-10 mb-10 p-6 bg-white shadow-lg rounded-lg h-[500px]">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+        
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
-                <li class="nav-item"><a href="{% url 'DietIntro' %}" class="nav-link">Diets</a></li>
-                <li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
-                <li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
-                <li class="nav-item">
-                    <a href="{% url 'CartPage' %}" class="nav-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <!-- <img src="{% static 'web/images/cart.png' %}" alt="Cart" width="20px" height="20px" style="margin-top:5px;margin-left:-40px"> -->
-                        <sup>{{cart}}</sup>
-                    </a>
-                </li>
-                <li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
-                <li class="nav-item active"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
-        {% if request.session.name %}
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false"
-                style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">Welcome
-                {{request.session.name}}</button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
-            </ul>
-        </div>
-        {% else %}
+            <!-- Contact Form Section -->
+            <div class="bg-gray-100 p-6 rounded-lg shadow-md  h-280">
+                <h2 class="text-3xl font-bold text-green-800 mb-6 ">Let’s Hear It – Feedback & Queries</h2>
+                <form action="{% url 'SaveContact' %}" method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label for="id_name" class="block text-sm font-medium text-green-800">Name</label>
+                        {{ form.Name }}
+                    </div>
+                    <div>
+                        <label for="id_email" class="block text-sm font-medium text-green-800">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label for="id_phone_no" class="block text-sm font-medium text-green-800">Phone Number</label>
+                        {{ form.phone_no }}
+                    </div>
+                    <div>
+                        <label for="id_objective" class="block text-sm font-medium text-green-800">Objective</label>
+                        {{ form.objective }}
+                    </div>
+                    <div>
+                        <label for="id_message" class="block text-sm font-medium text-green-800">Message</label>
+                        {{ form.Message }}
+                    </div>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 w-full">Ready to connect!</button>
+                </form>
+            </div>
+            <!-- Image Section -->
+            <div class="flex items-center min-h-full">
+               <img src="{% static 'web/images/portrait-woman-customer-service-worker.jpg' %}"  alt="Contact Image" class="rounded-lg shadow-md w-full h-full object-cover">
+            </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false" style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">My
-                Account</button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'SignIn' %}">Login</a></li>
-                <li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
-            </ul>
+            
         </div>
-        {% endif %}
     </div>
-</nav>
-
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <h2 class="mb-4 text-green-800 font-bold text-3xl">Let’s Hear It – Feedback & Queries</h2>
-            <form action="{% url 'SaveContact' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="id_name" class="block text-sm font-medium text-green-800">Name</label>
-                    {{ form.Name }}
-                </div>
-                <div class="form-group mt-3">
-                    <label for="id_email" class="block text-sm font-medium text-green-800">Email</label>
-                    {{ form.email }}
-                </div>
-                <div class="form-group mt-3">
-                    <label for="id_phone_no" class="block text-sm font-medium text-green-800">Phone Number</label>
-                    {{ form.phone_no }}
-                </div>
-                <div class="form-group mt-3">
-                    <label for="id_objective" class="block text-sm font-medium text-green-800">Objective</label>
-                    {{ form.objective }}
-                </div>
-                <div class="form-group mt-3">
-                    <label for="id_message" class="block text-sm font-medium text-green-800">Message</label>
-                    {{ form.Message }}
-                </div>
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-success w-100">Ready to connect!</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6 mx-auto">
-            <img src="{% static 'web/images/portrait-woman-customer-service-worker.jpg' %}" alt="Contact Image" style="border-radius:10px;">
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3 class="text-green-800 font-bold text-2xl mb-4" style="text-align: center;">Reach Out</h3>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa fa-map-marker-alt fa-2x mb-3" style="color: #28a745;"></i>
-                            <h5 class="card-title">Our Address</h5>
-                            <p class="card-text">123 Health Street, Wellness City, HC 98765</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa-solid fa-phone fa-2x mb-3" style="color: #28a745;"></i>
-                            <h5 class="card-title">Phone</h5>
-                            <p class="card-text">+1 234 567 890</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fa fa-envelope fa-2x mb-3" style="color: #28a745;"></i>
-                            <h5 class="card-title">Email</h5>
-                            <p class="card-text">support@myhealthcompass.com</p>
-                        </div>
-                    </div>
-                </div>
+    
+    <!-- Reach Out Section -->
+    <div class="container mx-auto p-6">
+        <h3 class="text-center text-2xl font-bold text-green-800 mb-6">Reach Out</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <i class="fa fa-map-marker-alt fa-2x text-green-600 mb-3"></i>
+                <h5 class="font-bold">Our Address</h5>
+                <p>123 Health Street, Wellness City, HC 98765</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <i class="fa fa-phone fa-2x text-green-600 mb-3"></i>
+                <h5 class="font-bold">Phone</h5>
+                <p>+1 234 567 890</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <i class="fa fa-envelope fa-2x text-green-600 mb-3"></i>
+                <h5 class="font-bold">Email</h5>
+                <p>support@myhealthcompass.com</p>
             </div>
         </div>
     </div>
-</div>
-
-</body>
+    
+    </body>
 {% endblock %}
