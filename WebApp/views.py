@@ -80,24 +80,78 @@ def Dashboard(request):
 
     return render(request, 'Dashboard.html',{'data':data})  # Render form for GET request
 
-def Dishes(re):
+def Diet(request):
     diet=MealPlansDb.objects.all()
-    return render(re,'Dishes.html',{'diet':diet})
-def search_recipe(request):
-    query = request.GET.get('query', '')
-    if query:
-        recipes = get_recipe(query)
-        return render(request, 'search_recipe.html', {'recipes': recipes})
-    return render(request, 'search_recipe.html')
-def get_recipe(query, offset=0):
-    api_url = f'https://api.api-ninjas.com/v1/recipe?query={query}&offset={offset}'
-    headers = {'X-Api-Key': settings.API_NINJAS_KEY}
+    return render(request,'Diet.html',{'diet':diet})
     
-    response = requests.get(api_url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
+def Dishes(request):
+    api_key = "YOUR_API_NINJAS_KEY"  # Replace with your API key
+    query = request.GET.get("query", "")  # Get search query from user input
+
+    recipes = []
+    if query:
+        url = f"https://api.api-ninjas.com/v1/recipe?query={query}"
+        headers = {"X-Api-Key": api_key}
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            recipes = response.json()
+        else:
+            recipes = []
+
+    diet_plans = [
+        {
+            "Plan": "Weight Loss",
+            "Objective": "Lose weight",
+            "Diet": "Low Carb",
+            "BreakFast": "Oatmeal with Berries",
+            "BImage": "/static/images/oatmeal.jpg",
+            "BCalorie": "350 kcal",
+            "Lunch": "Grilled Chicken Salad",
+            "LImage": "/static/images/salad.jpg",
+            "LCalorie": "450 kcal",
+            "Dinner": "Salmon with Veggies",
+            "DImage": "/static/images/salmon.jpg",
+            "DCalorie": "500 kcal",
+        }
+    ]
+
+    return render(request, "dishes.html", {"diet": diet_plans, "recipes": recipes})
+def recipe_search(request):
+    query = request.GET.get("query")
+    recipes = []
+
+    if query:
+        url = f"https://api.api-ninjas.com/v1/recipe?query={query}"
+        headers = {"X-Api-Key": "o3t54D+t/feLQyikOG8/dg==YGcjnU5cIIoEHtyM"}
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            recipes = response.json()  # Store response data
+        else:
+            print("Error fetching recipes:", response.status_code, response.text)
+
+    return render(request, "Dishes.html", {"recipes": recipes})
+# def search_recipe(request):
+#     query = request.GET.get('query', '').strip()  # Ensures query is not empty
+#     recipes = []
+
+#     if query:
+#         recipes = get_recipe(query)  # Fetch recipes using API
+
+#     return render(request, 'Dishes.html', {'recipes': recipes, 'query': query})
+
+# def get_recipe(query, offset=0):
+#     api_url = f'https://api.api-ninjas.com/v1/recipe?query={query}&offset={offset}'
+#     headers = {'X-Api-Key': settings.API_NINJAS_KEY}  # Ensure API key is set in settings.py
+
+#     try:
+#         response = requests.get(api_url, headers=headers, timeout=5)  # Added timeout for better handling
+#         response.raise_for_status()  # Raise error if request fails
+#         return response.json() if response.status_code == 200 else []
+#     except requests.RequestException as e:
+#         print(f"API Request Error: {e}")  # Log error for debugging
+#         return []
 
 def ShopCategory(re):
     name = re.session.get('name')  # Use get() to safely access the key

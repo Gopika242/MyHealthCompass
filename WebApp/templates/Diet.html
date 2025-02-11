@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Plans</title>
+    <style>
+       .diet-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .diet-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'Home' %}">MyHealth<span>Compass<i class="fa fa-leaf"></i></span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="fa fa-bars"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item "><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="{%url 'About' %}" class="nav-link">About</a></li>
+					<li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link">Dashboard</a></li>
+					<li class="nav-item active"><a href="{% url 'DietIntro' %}" class="nav-link active">Diets</a></li>
+					<li class="nav-item"><a href="{% url 'IntroExercise' %}" class="nav-link">Exercises</a></li>
+					<li class="nav-item"><a href="{% url 'ShopCategory' %}" class="nav-link">Shop</a></li>
+					<li class="nav-item">
+						<a href="{% url 'CartPage' %}" class="nav-link">
+							<i class="fa-solid fa-cart-shopping"></i>
+							<!-- <img src="{% static 'web/images/cart.png' %}" alt="Cart" width="20px" height="20px" style="margin-top:5px;margin-left:-40px"> -->
+							<sup>{{cart}}</sup>
+						</a>
+					</li>
+					<li class="nav-item"><a href="{% url 'Blog' %}" class="nav-link">Blog</a></li>
+					<li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+				</ul>
+			</div>
+			{% if request.session.name %}
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+					aria-expanded="false"
+					style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">Welcome
+					{{request.session.name}}</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+				</ul>
+			</div>
+			{% else %}
+
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+					aria-expanded="false" style="background-color:#FFFFFF;color:#000000;outline: none; border: none;">My
+					Account</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'SignIn' %}">Login</a></li>
+					<li><a class="dropdown-item" href="{% url 'UserLogout' %}">Logout</a></li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</nav>
+
+{% for i in diet %}
+<div class="container mt-5">
+    <!-- Diet Plan Details -->
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <h1 class="heading">{{ i.Plan }}</h1>
+            <h4>Objective: {{ i.Objective }}</h4>
+            <p>Type of Diet: {{ i.Diet }}</p>
+        </div>
+    </div>
+
+    <!-- Meal Details -->
+    <div class="row">
+        <!-- Breakfast -->
+        <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
+            <div class="d-block services-wrap text-center">
+                <div class="img">
+                    <img src="{{ i.BImage.url }}" height="200px" width="200px" alt="">
+                </div>
+                <div class="media-body p-2 mt-3">
+                    <h3 class="heading">{{ i.BreakFast }}</h3>
+                    <p>Breakfast</p>
+                    <p>Calorie: {{ i.BCalorie }}</p>
+                    <p><a href="{% url 'Dishes' %}" class="btn btn-primary btn-outline-primary">Search for Recipe</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lunch -->
+        <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
+            <div class="d-block services-wrap text-center">
+                <div class="img">
+                    <img src="{{ i.LImage.url }}" height="200px" width="200px" alt="">
+                </div>
+                <div class="media-body p-2 mt-3">
+                    <h3 class="heading">{{ i.Lunch }}</h3>
+                    <p>Lunch</p>
+                    <p>Calorie: {{ i.LCalorie }}</p>
+                    <p><a href="{% url 'Dishes' %}" class="btn btn-primary btn-outline-primary">Search for Recipe</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dinner -->
+        <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
+            <div class="d-block services-wrap text-center">
+                <div class="img">
+                    <img src="{{ i.DImage.url }}" height="200px" width="200px" alt="">
+                </div>
+                <div class="media-body p-2 mt-3">
+                    <h3 class="heading">{{ i.Dinner }}</h3>
+                    <p>Dinner</p>
+                    <p>Calorie: {{ i.DCalorie }}</p>
+                    <p><a href="{% url 'Dishes' %}" class="btn btn-primary btn-outline-primary">Search for Recipe</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+{% endfor %}
+<div class="text-center mt-4 md-4">
+    <a href="{% url 'Dishes' %}" class="diet-button">Go to Recipe Page</a>
+</div><br><br>
+</body>
+</html>
+{% endblock %}
