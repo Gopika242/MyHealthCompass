@@ -9,6 +9,9 @@ class SignUpDb(models.Model):
     email=models.EmailField(max_length=100,null=True,blank=True)
     pass1=models.CharField(max_length=150,null=True,blank=True)
     pass2=models.CharField(max_length=100,null=True,blank=True)
+    weight=models.IntegerField(null=True,blank=True)
+    height=models.IntegerField(null=True,blank=True)
+    profile_image=models.ImageField(upload_to="profile",null=True,blank=True)
 
 class CartDb(models.Model):
      name=models.CharField(max_length=100,null=True,blank=True)

@@ -1,4 +1,3 @@
-
 from django.shortcuts import render,redirect
 import requests
 import json
@@ -350,3 +349,27 @@ def SaveContact(request):
 
 def DietIntro(re):
     return render(re,'Dietintro.html')
+
+from django.core.files.storage import default_storage
+
+def UpdateProfile(request):
+    if request.method == 'POST':
+        try:
+            user = SignUpDb.objects.get(name=request.session['name'])
+            user.name = request.POST.get('name')
+            user.age = request.POST.get('age')
+            user.gender = request.POST.get('gender')
+            user.objective = request.POST.get('objective')
+            user.email = request.POST.get('email')
+            user.weight = request.POST.get('weight')
+            user.height = request.POST.get('height')
+            
+            # Handle profile image update
+            if 'profile_image' in request.FILES:
+                user.profile_image = request.FILES['profile_image']
+            
+            user.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False})

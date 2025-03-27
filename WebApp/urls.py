@@ -32,6 +32,7 @@ path('OrderSave/',views.OrderSave,name='OrderSave'),
 path('Blog/',views.Blog,name='Blog'),
 path('SingleBlog/<int:id1>/',views.SingleBlog,name='SingleBlog'),
 path('Contact/',views.Contact,name='Contact'),
-path('SaveContact/',views.SaveContact,name='SaveContact')
+path('SaveContact/',views.SaveContact,name='SaveContact'),
+path('UpdateProfile/',views.UpdateProfile,name='UpdateProfile')
 
 ]

@@ -13,120 +13,265 @@
     />
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{% static 'web/css/bmi.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Foodie Calorie Finder</title>
     <style>
+      :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #2ecc71;
+        --accent-color: #e74c3c;
+        --background-color: #f5f7fa;
+        --card-background: #ffffff;
+        --text-primary: #2c3e50;
+        --text-secondary: #7f8c8d;
+      }
+      .profile-image-upload {
+  transition: all 0.3s ease;
+}
+
+.profile-image-upload:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+#imageUpload {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.image-preview-container {
+  border: 2px dashed #dee2e6;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.image-preview-container:hover {
+  border-color: #4a90e2;
+}
       body {
-        background-color: #f8f9fa;
-        font-family: Arial, sans-serif;
+        background-color: var(--background-color);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-primary);
+      }
+
+      .navbar {
+        background: linear-gradient(135deg, var(--primary-color), #2980b9) !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .navbar-brand {
+        color: white !important;
+        font-weight: 700;
+        font-size: 1.5rem;
       }
 
       .navbar-nav .nav-item .nav-link {
-        color: #000 !important;
+        color: rgba(255,255,255,0.9) !important;
         font-weight: 500;
-        position: relative;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+        color: white !important;
+        background-color: rgba(255,255,255,0.1);
       }
 
       .navbar-nav .nav-item .nav-link.active {
-        color: #007bff !important;
-      }
-
-      .navbar-nav .nav-item .nav-link.active::after {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: #007bff;
-        position: absolute;
-        bottom: -5px;
-        left: 0;
+        color: white !important;
+        background-color: rgba(255,255,255,0.2);
       }
 
       .card {
-        background-color: #f9f9f9;
-        border-radius: 12px;
+        background-color: var(--card-background);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
       }
 
       .card-body {
-        padding: 20px;
+        padding: 25px;
       }
 
-      .input-group .form-control {
-        border: 2px solid #28a745;
-        border-right: none;
-        border-radius: 10px 0 0 10px;
+      .card h2 {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
       }
 
-      .input-group .btn {
-        border-radius: 0 10px 10px 0;
+      .card h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        border-radius: 3px;
       }
 
       .list-group-item {
-        font-size: 14px;
         border: none;
-        padding: 10px 15px;
-      }
-
-      .bg-light {
-        background-color: #eef9f1 !important;
-      }
-
-      .text-primary {
-        color: #007bff;
-      }
-
-      .text-success {
-        color: #28a745;
-      }
-
-      .text-center {
+        padding: 15px;
         margin-bottom: 10px;
+        border-radius: 10px !important;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+      }
+
+      .list-group-item:hover {
+        background-color: #e9ecef;
+        transform: translateX(5px);
+      }
+
+      .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+      }
+
+      .btn {
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), #2980b9);
+        border: none;
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, var(--secondary-color), #27ae60);
+        border: none;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       }
 
       .activity-icon {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         margin-right: 10px;
         vertical-align: middle;
+        transition: transform 0.3s ease;
       }
 
-      .text-info {
-        color: #17a2b8 !important;
+      .activity-icon:hover {
+        transform: scale(1.1);
       }
-     
-	.quote-section {
-    background-color: #f8f9fa; /* Light background color */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    margin: 20px 0;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-}
 
-.quote-section h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333; /* Dark color for text */
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #e9ecef; /* Slightly darker background */
-    border-radius: 8px;
-}
+      .bmi-chart-container {
+        position: relative;
+        height: 200px;
+        margin: 20px 0;
+      }
 
-.quote-section blockquote {
-    font-size: 20px;
-    color: #555; /* Lighter color for the quote text */
-    font-style: italic;
-    margin: 0;
-    padding: 10px 20px;
-    background-color: #ffffff; /* White background for the quote */
-    border-left: 5px solid #007bff; /* Blue left border for emphasis */
-    display: inline-block;
-    max-width: 90%;
-    line-height: 1.6;
-}
+      .bmi-status {
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        font-weight: 600;
+      }
 
+      .bmi-status.underweight {
+        background-color: #ffeeba;
+        color: #856404;
+      }
 
+      .bmi-status.normal {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .bmi-status.overweight {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      .bmi-status.obese {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .bmi-scale {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        padding: 0 20px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .bmi-scale-item {
+        text-align: center;
+        flex: 1;
+      }
+
+      .bmi-scale-item::before {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 10px;
+        background-color: var(--text-secondary);
+        margin: 0 auto 5px;
+      }
+
+      .profile-section {
+        background: linear-gradient(135deg, #fff, #f8f9fa);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 15px;
+      }
+
+      .stats-card {
+        background: linear-gradient(135deg, var(--primary-color), #2980b9);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .stats-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 10px 0;
+      }
+
+      .stats-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
     </style>
   </head>
 
@@ -217,23 +362,97 @@
       <div class="card shadow rounded">
         <div class="card-body">
           <h2 class="text-center text-info" >User Profile</h2>
-          <div class="text-center mb-3">
-            <img src="{% static 'web/images/person-1.jpg' %}" class="rounded-circle" width="100" height="100" alt="User Profile Picture">
-          </div>
+          <!-- <div class="text-center mb-3">
+            <input type="file" name="profile_image" id="imageUpload" value="{{i.profile_image.url}}" class="form-control d-none" accept="image/*" onchange="previewImage(event)">
+           <img src="{{ i.profile_image.url }}" class="rounded-circle" width="100" height="100" alt="User Profile Picture"> -->
+          <!-- </div>  -->
           <h4 class="text-center text-success">Welcome, {{request.session.name}}!</h4>
           {% for i in data %}
-          <ul class="list-group" >
-            <li class="list-group-item">Name: <strong>{{i.name}}</strong></li>
-            <li class="list-group-item">Age: <strong>{{i.age}}</strong></li>
-            <li class="list-group-item">Gender: <strong>{{i.gender}}</strong></li>
-            <li class="list-group-item">Objective: <strong>{{i.objective}}</strong></li>
-<!--            <li class="list-group-item">Weight: <strong>{{ user.weight }} kg</strong></li>-->
-<!--            <li class="list-group-item">BMI: <strong>{{bmi}}</strong></li>-->
-          </ul>
-          {% endfor %}
-          <div class="text-center mt-4">
-<!--            <button class="btn btn-warning" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>-->
+          <!-- Display Mode -->
+          <div id="displayMode">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <strong>Name:</strong> <span id="displayName">{{i.name}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Age:</strong> <span id="displayAge">{{i.age}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Gender:</strong> <span id="displayGender">{{i.gender}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Objective:</strong> <span id="displayObjective">{{i.objective}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Email:</strong> <span id="displayEmail">{{i.email}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Weight (kg):</strong> <span id="displayWeight">{{i.weight|default:"Not set"}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Height (cm):</strong> <span id="displayHeight">{{i.height|default:"Not set"}}</span>
+              </li>
+            </ul>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary" onclick="toggleEditMode()">Edit Profile</button>
+            </div>
           </div>
+
+          <!-- Edit Mode -->
+          <div id="editMode" style="display: none;">
+            <form id="profileForm" method="POST" action="{% url 'UpdateProfile' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <ul class="list-group">
+
+                <li class="list-group-item">
+                  <strong>Name:</strong>
+                  <input type="text" name="name" class="form-control" value="{{i.name}}" required>
+                </li>
+                <li class="list-group-item">
+                  <strong>Age:</strong>
+                  <input type="number" name="age" class="form-control" value="{{i.age}}" required>
+                </li>
+                <li class="list-group-item">
+                  <strong>Gender:</strong>
+                  <select name="gender" class="form-control" required>
+                    <option value="Male" {% if i.gender == 'Male' %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if i.gender == 'Female' %}selected{% endif %}>Female</option>
+                    <option value="Other" {% if i.gender == 'Other' %}selected{% endif %}>Other</option>
+                  </select>
+                </li>
+                <li class="list-group-item">
+                  <strong>Objective:</strong>
+                  <select name="objective" class="form-control" required>
+                    <option value="Weight Loss" {% if i.objective == 'Weight Loss' %}selected{% endif %}>Weight Loss</option>
+                    <option value="Muscle Gain" {% if i.objective == 'Muscle Gain' %}selected{% endif %}>Muscle Gain</option>
+                    <option value="Maintenance" {% if i.objective == 'Maintenance' %}selected{% endif %}>Maintenance</option>
+                    <option value="General Health" {% if i.objective == 'General Health' %}selected{% endif %}>General Health</option>
+                  </select>
+                </li>
+                <li class="list-group-item">
+                  <strong>Email:</strong>
+                  <input type="email" name="email" class="form-control" value="{{i.email}}" required>
+                </li>
+                <li class="list-group-item">
+                  <strong>Weight (kg):</strong>
+                  <input type="number" name="weight" class="form-control" value="{{i.weight|default:''}}" step="0.1" required>
+                </li>
+                <li class="list-group-item">
+                  <strong>Height (cm):</strong>
+                  <input type="number" name="height" class="form-control" value="{{i.height|default:''}}" required>
+                </li>
+                <!-- <li class="list-group-item">
+                  <strong>Profile Image:</strong>
+                  <input type="file" name="profile_image" class="form-control">
+                </li> -->
+              </ul>
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success me-2">Save Changes</button>
+                <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Cancel</button>
+              </div>
+            </form>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -255,11 +474,24 @@
             </div>
 
             <button type="button" class="btn btn-primary w-100 mt-3" id="calculateButton">Calculate BMI</button>
-            <div class="mt-3">
-              <label for="bmi" class="form-label">Your BMI:</label>
-              <input class="form-control" id="bmi" type="text" disabled readonly>
+            
+            <div class="mt-4">
+              <div class="bmi-value-display text-center mb-4">
+                <h4>Your BMI: <span id="bmiValue" class="text-primary">--</span></h4>
+              </div>
+              <div class="d-flex justify-content-center align-items-center" style="min-height: 400px;">
+                <div class="bmi-chart-container" style="width: 100%; max-width: 400px;">
+                  <canvas id="bmiChart"></canvas>
+                </div>
+              </div>
+              <div class="bmi-scale">
+                <div class="bmi-scale-item">Underweight</div>
+                <div class="bmi-scale-item">Normal</div>
+                <div class="bmi-scale-item">Overweight</div>
+                <div class="bmi-scale-item">Obese</div>
+              </div>
+              <div id="bmiStatus" class="bmi-status"></div>
             </div>
-              <div style="padding-top:10px;text-align:center;color:#007bff" id="statusMessage" class="mt-3 text-center"></div>
           </form>
         </div>
       </div>
@@ -347,52 +579,164 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBeRxccyEtnPBze/Kf9P0CYUhtTU7FZp8YZ6QBJERHWKPfX1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-ZfmxFVVQ4s5C6RAcXojCyytn9Gxw27nLRAeO4jpk1Nf38GQcljA5JjC5d5RhuLTO" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
 <script>
+  let gauge;
+
   $(document).ready(function () {
+    // Initialize the gauge
+    const canvas = document.getElementById('bmiChart');
+    gauge = new Gauge(canvas).setOptions({
+      angle: 0,
+      lineWidth: 0.44,
+      radiusScale: 0.8,
+      pointer: {
+        length: 0.6,
+        strokeWidth: 0.035,
+        color: '#000000'
+      },
+      limitMax: false,
+      limitMin: false,
+      colorStart: '#ffc107',
+      colorStop: '#dc3545',
+      strokeColor: '#E0E0E0',
+      generateGradient: true,
+      highDpiSupport: true,
+      percentColors: [[0.0, "#ffc107"], [0.5, "#28a745"], [0.8, "#ffc107"], [1.0, "#dc3545"]],
+      staticLabels: {
+        font: "14px sans-serif",
+        labels: [0, 18.5, 24.9, 29.9, 40],
+        color: "#000000"
+      },
+      staticZones: [
+        {strokeStyle: "#ffc107", min: 0, max: 18.5},
+        {strokeStyle: "#28a745", min: 18.5, max: 24.9},
+        {strokeStyle: "#ffc107", min: 24.9, max: 29.9},
+        {strokeStyle: "#dc3545", min: 29.9, max: 40}
+      ],
+      renderTicks: {
+        divisions: 5,
+        divWidth: 1.1,
+        divLength: 0.7,
+        divColor: '#333333',
+        subDivisions: 3,
+        subLength: 0.5,
+        subWidth: 0.6,
+        subColor: '#666666'
+      }
+    });
+
+    // Set initial value
+    gauge.maxValue = 40;
+    gauge.setMinValue(0);
+    gauge.set(0);
+
+    // Update gauge size when window is resized
+    $(window).resize(function() {
+      gauge.update(true);
+    });
+
     $("#calculateButton").click(function () {
-        // Getting weight and height values from inputs
-        let weight = parseFloat($("#weight").val());
-        let height = parseFloat($("#height").val()) / 100; // Convert cm to meters
+      let weight = parseFloat($("#weight").val());
+      let height = parseFloat($("#height").val()) / 100;
 
-        // Checks if the inputs are valid, isNaN : is not a number
-        if (!isNaN(weight) && !isNaN(height) && height > 0) {
-            // Calculate BMI
-            let bmi = (weight / (height ** 2)).toFixed(2);
-            // Display the result in the BMI field
-            $("#bmi").val(bmi);
+      if (!isNaN(weight) && !isNaN(height) && height > 0) {
+        let bmi = (weight / (height ** 2)).toFixed(2);
+        $("#bmiValue").text(bmi);
+        gauge.set(bmi);
 
-            // Determine BMI status
-            let statusMessage = '';
-            if (bmi < 18.5) {
-              statusMessage = 'You are underweight. It\'s important to maintain a balanced diet.';
-            } else if (bmi >= 18.5 && bmi < 24.9) {
-              statusMessage = 'You have a normal weight. Keep up the good work!';
-            } else if (bmi >= 25 && bmi < 29.9) {
-              statusMessage = 'You are overweight. Consider adopting a healthier lifestyle.';
-            } else {
-              statusMessage = 'You are obese. It\'s recommended to consult with a healthcare professional for advice.';
-            }
-
-            // Display BMI status message
-            $("#statusMessage").text(statusMessage); // Use jQuery to update text
+        // Determine BMI status
+        let statusMessage = '';
+        let statusClass = '';
+        if (bmi < 18.5) {
+          statusMessage = 'You are underweight. It\'s important to maintain a balanced diet.';
+          statusClass = 'underweight';
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+          statusMessage = 'You have a normal weight. Keep up the good work!';
+          statusClass = 'normal';
+        } else if (bmi >= 25 && bmi < 29.9) {
+          statusMessage = 'You are overweight. Consider adopting a healthier lifestyle.';
+          statusClass = 'overweight';
         } else {
-            // Clear BMI field and show an alert if inputs are invalid
-            $("#bmi").val("");
-            alert("Please enter valid weight and height values.");
+          statusMessage = 'You are obese. It\'s recommended to consult with a healthcare professional for advice.';
+          statusClass = 'obese';
         }
+
+        $("#bmiStatus")
+          .removeClass('underweight normal overweight obese')
+          .addClass(statusClass)
+          .text(statusMessage);
+      } else {
+        $("#bmiValue").text("--");
+        alert("Please enter valid weight and height values.");
+      }
     });
   });
-</script>
-  <script>
-  // Get all navbar links
-  let navbarLinks = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
-  navbarLinks.forEach(link => {
-    // Remove the 'active' class from all links
-    link.classList.remove('active');
 
-    // If the link's href matches the current page URL, add the 'active' class
-    if (link.href === window.location.href) {
-      link.classList.add('active');
+  // Set active navbar link based on URL
+  let currentUrl = window.location.href;
+  $(".navbar-nav .nav-link").each(function () {
+    if (this.href === currentUrl) {
+      $(this).addClass("active");
+    }
+  });
+
+  // Add toggle function for edit mode
+  function toggleEditMode() {
+    const displayMode = document.getElementById('displayMode');
+    const editMode = document.getElementById('editMode');
+    displayMode.style.display = displayMode.style.display === 'none' ? 'block' : 'none';
+    editMode.style.display = editMode.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Update form submission handling
+  $(document).ready(function() {
+    $("#profileForm").on('submit', function(e) {
+      e.preventDefault();
+      
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function(response) {
+          if(response.success) {
+            // Update display values
+            $('#displayName').text($('input[name="name"]').val());
+            $('#displayAge').text($('input[name="age"]').val());
+            $('#displayGender').text($('select[name="gender"]').val());
+            $('#displayObjective').text($('select[name="objective"]').val());
+            $('#displayEmail').text($('input[name="email"]').val());
+            $('#displayWeight').text($('input[name="weight"]').val());
+            $('#displayHeight').text($('input[name="height"]').val());
+            
+            // Update BMI calculator with new values
+            $('#weight').val($('input[name="weight"]').val());
+            $('#height').val($('input[name="height"]').val());
+            
+            // Calculate BMI automatically
+            if($('#weight').val() && $('#height').val()) {
+              $("#calculateButton").click();
+            }
+            
+            // Toggle back to display mode
+            toggleEditMode();
+            alert('Profile updated successfully!');
+          } else {
+            alert('Error updating profile. Please try again.');
+          }
+        },
+        error: function() {
+          alert('Error updating profile. Please try again.');
+        }
+      });
+    });
+
+    // Set initial BMI calculation if weight and height exist
+    if($('#displayWeight').text() !== 'Not set' && $('#displayHeight').text() !== 'Not set') {
+      $('#weight').val($('#displayWeight').text());
+      $('#height').val($('#displayHeight').text());
+      $("#calculateButton").click();
     }
   });
 </script>
